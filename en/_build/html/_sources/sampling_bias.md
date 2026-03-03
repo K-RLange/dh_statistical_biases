@@ -47,7 +47,7 @@ under-predicts their wages.
 # Install packages when running in JupyterLite (Pyodide) via Thebe.
 try:
     import micropip
-    await micropip.install(['scikit-learn', 'ipywidgets', 'matplotlib', 'pandas', 'numpy'])
+    await micropip.install(['scikit-learn', 'matplotlib', 'pandas', 'numpy'])
 except ImportError:
     pass
 ```
@@ -60,8 +60,8 @@ import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
-import ipywidgets as widgets
-from IPython.display import display, clear_output
+import json as _json, io, base64
+from IPython.display import display, HTML
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -342,77 +342,128 @@ click **Train & Evaluate** to see how the predictions change.
 - **0 %**: extreme: only young workers (model predicts young-worker wages for everyone)
 
 ```{code-cell}
-slider = widgets.IntSlider(
-    value=0, min=0, max=100, step=5,
-    description='Keep % of middle/older:',
-    style={'description_width': 'initial'},
-    layout=widgets.Layout(width='450px'),
-    continuous_update=False,
-)
-button      = widgets.Button(description='Train & Evaluate', button_style='primary',
-                             icon='play', layout=widgets.Layout(width='200px', height='36px'))
-output_area = widgets.Output()
+:tags: ["remove_input", "remove_output"]
+_KEEP_VALUES = list(range(0, 105, 5))
+_sb_data = {}
 
-def run_experiment(_):
-    keep = slider.value / 100.0
-    with output_area:
-        clear_output(wait=True)
+for _kf_pct in _KEEP_VALUES:
+    _kf   = _kf_pct / 100.0
+    _df_b = make_biased_sample(df_full_train, keep_fraction=_kf)
+    _tree = DecisionTreeRegressor(max_depth=4, random_state=42)
+    _tree.fit(_df_b[feature_cols], _df_b['wage'])
 
-        df_b = make_biased_sample(df_full_train, keep_fraction=keep)
-        tree = DecisionTreeRegressor(max_depth=4, random_state=42)
-        tree.fit(df_b[feature_cols], df_b['wage'])
+    _rows = []
+    for _g in GROUP_ORDER:
+        _sub = df_test[df_test['age_group'] == _g]
+        _p   = _tree.predict(_sub[feature_cols])
+        _rows.append({
+            'group':    _g,
+            'actual':   round(float(_sub['wage'].mean()), 1),
+            'balanced': round(float(_sub['pred_balanced'].mean()), 1),
+            'model':    round(float(_p.mean()), 1),
+            'rmse_bal': round(float(rmse(_sub['wage'], _sub['pred_balanced'])), 2),
+            'rmse_mod': round(float(rmse(_sub['wage'], _p)), 2),
+        })
 
-        results = df_test[['age_group', 'wage']].copy()
-        results['pred'] = tree.predict(df_test[feature_cols])
+    _fig, _axes = plt.subplots(1, 2, figsize=(13, 4))
+    _x = np.arange(len(GROUP_ORDER))
+    _w = 0.25
+    _ra = [r['actual']   for r in _rows]
+    _rb = [r['balanced'] for r in _rows]
+    _rm = [r['model']    for r in _rows]
 
-        print(f"Keep fraction: {int(keep*100)}%  |  Training size: {len(df_b)}  "
-              f"|  Mean wage in training: ${df_b['wage'].mean():.1f}/hr")
-        print("=" * 62)
-        print(f"{'Age group':<18} {'Actual':>10} {'Balanced':>10} {'This model':>12}  {'RMSE':>8}")
-        print("-" * 62)
-        for g in GROUP_ORDER:
-            sub      = results[results['age_group'] == g]
-            actual   = sub['wage'].mean()
-            balanced = df_test[df_test['age_group'] == g]['pred_balanced'].mean()
-            pred     = sub['pred'].mean()
-            err      = rmse(sub['wage'], sub['pred'])
-            print(f"{g:<18} ${actual:>8.1f} ${balanced:>8.1f} ${pred:>10.1f}  {err:>7.2f} $/hr")
+    _axes[0].bar(_x - _w, _ra, _w, label='Actual',         color='gray',      alpha=0.8)
+    _axes[0].bar(_x,       _rb, _w, label='Balanced model', color='steelblue', alpha=0.8)
+    _axes[0].bar(_x + _w,  _rm, _w, label='This model',     color='coral',     alpha=0.8)
+    _axes[0].set_ylabel('Mean wage ($/hr)')
+    _axes[0].set_title(f'Mean Predicted Wage  (keep = {_kf_pct}%)')
+    _axes[0].set_xticks(_x)
+    _axes[0].set_xticklabels(GROUP_ORDER)
+    _axes[0].legend()
+    _axes[0].set_ylim(0, max(_ra) * 1.35)
+    for _i, (_a, _b, _m) in enumerate(zip(_ra, _rb, _rm)):
+        for _j, _v in enumerate([_a, _b, _m]):
+            _axes[0].text(_i - _w + _j * _w, _v + 0.2, f'${_v:.0f}',
+                          ha='center', va='bottom', fontsize=9)
 
-        fig, axes = plt.subplots(1, 2, figsize=(13, 4))
-        x     = np.arange(len(GROUP_ORDER))
-        width = 0.25
+    _rmse_b = [r['rmse_bal'] for r in _rows]
+    _rmse_m = [r['rmse_mod'] for r in _rows]
+    _axes[1].bar(_x - _w / 2, _rmse_b, _w, label='Balanced model', color='steelblue', alpha=0.8)
+    _axes[1].bar(_x + _w / 2, _rmse_m, _w, label='This model',     color='coral',     alpha=0.8)
+    _axes[1].set_ylabel('RMSE ($/hr)')
+    _axes[1].set_title(f'Prediction Error by Age Group  (keep = {_kf_pct}%)')
+    _axes[1].set_xticks(_x)
+    _axes[1].set_xticklabels(GROUP_ORDER)
+    _axes[1].legend()
+    for _i, (_bv, _mv) in enumerate(zip(_rmse_b, _rmse_m)):
+        for _j, _v in enumerate([_bv, _mv]):
+            _axes[1].text(_i - _w / 2 + _j * _w, _v + 0.05, f'{_v:.1f}',
+                          ha='center', va='bottom', fontsize=9)
 
-        ra = [df_test[df_test['age_group'] == g]['wage'].mean()          for g in GROUP_ORDER]
-        rb = [df_test[df_test['age_group'] == g]['pred_balanced'].mean() for g in GROUP_ORDER]
-        rm = [results[results['age_group'] == g]['pred'].mean()          for g in GROUP_ORDER]
+    plt.tight_layout()
+    _buf = io.BytesIO()
+    plt.savefig(_buf, format='png', dpi=96, bbox_inches='tight')
+    plt.close()
+    _buf.seek(0)
 
-        axes[0].bar(x - width, ra, width, label='Actual',         color='gray',      alpha=0.8)
-        axes[0].bar(x,          rb, width, label='Balanced model', color='steelblue', alpha=0.8)
-        axes[0].bar(x + width,  rm, width, label='This model',     color='coral',     alpha=0.8)
-        axes[0].set_ylabel('Mean wage ($/hr)')
-        axes[0].set_title(f'Mean Predicted Wage  (keep = {int(keep*100)}%)')
-        axes[0].set_xticks(x)
-        axes[0].set_xticklabels(GROUP_ORDER)
-        axes[0].legend()
+    _sb_data[str(_kf_pct)] = {
+        'n':    len(_df_b),
+        'mean': round(float(_df_b['wage'].mean()), 1),
+        'rows': _rows,
+        'img':  base64.b64encode(_buf.read()).decode(),
+    }
+```
 
-        rmse_b = [rmse(df_test[df_test['age_group'] == g]['wage'],
-                       df_test[df_test['age_group'] == g]['pred_balanced']) for g in GROUP_ORDER]
-        rmse_m = [rmse(results[results['age_group'] == g]['wage'],
-                       results[results['age_group'] == g]['pred'])          for g in GROUP_ORDER]
-
-        axes[1].bar(x - width/2, rmse_b, width, label='Balanced model', color='steelblue', alpha=0.8)
-        axes[1].bar(x + width/2, rmse_m, width, label='This model',     color='coral',     alpha=0.8)
-        axes[1].set_ylabel('RMSE ($/hr)')
-        axes[1].set_title(f'Prediction Error by Age Group  (keep = {int(keep*100)}%)')
-        axes[1].set_xticks(x)
-        axes[1].set_xticklabels(GROUP_ORDER)
-        axes[1].legend()
-
-        plt.tight_layout()
-        plt.show()
-
-button.on_click(run_experiment)
-display(widgets.VBox([slider, button, output_area]))
+```{code-cell}
+:tags: ["remove_input"]
+_js = _json.dumps(_sb_data)
+display(HTML(f"""
+<script>var _SB={_js};</script>
+<div style="border:1px solid #ccc;padding:16px;border-radius:6px;margin:12px 0;">
+  <label style="font-weight:bold;">Keep % of middle/older workers:&nbsp;</label>
+  <strong id="sb-pct">0%</strong><br>
+  <input type="range" id="sb-sl" min="0" max="100" step="5" value="0"
+         style="width:420px;margin-top:6px;">
+  <div id="sb-info" style="margin:8px 0;font-family:monospace;font-size:13px;"></div>
+  <table style="border-collapse:collapse;font-size:13px;margin-bottom:10px;">
+    <thead style="background:#f0f0f0;">
+      <tr>
+        <th style="padding:5px 10px;border:1px solid #ccc;text-align:left;">Age group</th>
+        <th style="padding:5px 10px;border:1px solid #ccc;">Actual</th>
+        <th style="padding:5px 10px;border:1px solid #ccc;">Balanced</th>
+        <th style="padding:5px 10px;border:1px solid #ccc;">This model</th>
+        <th style="padding:5px 10px;border:1px solid #ccc;">RMSE</th>
+      </tr>
+    </thead>
+    <tbody id="sb-tb"></tbody>
+  </table>
+  <img id="sb-img" style="max-width:100%;" alt="Model comparison chart">
+</div>
+<script>
+(function(){{
+  var D=window._SB, sl=document.getElementById('sb-sl');
+  function upd(v) {{
+    var d=D[String(v)];
+    document.getElementById('sb-pct').textContent=v+'%';
+    document.getElementById('sb-info').textContent=
+      'Training size: '+d.n+'   |   Mean wage in training: $'+d.mean+'/hr';
+    document.getElementById('sb-tb').innerHTML=d.rows.map(function(r) {{
+      var lo=r.model < r.balanced-1;
+      return '<tr>'+
+        '<td style="padding:4px 10px;border:1px solid #ccc;">'+r.group+'</td>'+
+        '<td style="padding:4px 10px;border:1px solid #ccc;text-align:right;">$'+r.actual.toFixed(1)+'</td>'+
+        '<td style="padding:4px 10px;border:1px solid #ccc;text-align:right;">$'+r.balanced.toFixed(1)+'</td>'+
+        '<td style="padding:4px 10px;border:1px solid #ccc;text-align:right;font-weight:bold;color:'+(lo?'#c0392b':'inherit')+';">$'+r.model.toFixed(1)+'</td>'+
+        '<td style="padding:4px 10px;border:1px solid #ccc;text-align:right;">'+r.rmse_mod.toFixed(2)+' $/hr</td>'+
+        '</tr>';
+    }}).join('');
+    document.getElementById('sb-img').src='data:image/png;base64,'+d.img;
+  }}
+  sl.addEventListener('input', function() {{ upd(parseInt(this.value)); }});
+  upd(0);
+}})();
+</script>
+"""))
 ```
 
 ## Key Observations

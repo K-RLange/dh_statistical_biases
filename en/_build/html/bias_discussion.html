@@ -1,0 +1,1066 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4. Discussion and Quiz &#8212; Impacts of Data Manipulation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/thebe.css?v=9bca0c2f" />
+    <link rel="stylesheet" type="text/css" href="_static/code.css?v=4bf7ba55" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script defer="defer" src="_static/refresh.js?v=9bea9b76"></script>
+    <script>const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script defer="defer" src="_static/sphinx-thebe-lite.js?v=2a71eeb1"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'bias_discussion';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="3. More Biases: Survivorship and P-hacking" href="bias_further.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Impacts of Data Manipulation - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Impacts of Data Manipulation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    The impact of statistical biases - Data Literacy at TU Dortmund University
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bias_baseline.html">1. Omitted Variable Bias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_bias.html">2. Sampling Bias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bias_further.html">3. More Biases: Survivorship and P-hacking</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Discussion and Quiz</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/K-RLange/dh_statistical_biases/master?urlpath=tree/en/bias_discussion.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://jupyterhub.uni-muenster.de/hub/user-redirect/git-pull?repo=https%3A//github.com/K-RLange/dh_statistical_biases&urlpath=tree/dh_statistical_biases/en/bias_discussion.md&branch=master" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onJupyterHub"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="btn__text-container">JupyterHub</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://deepnote.com/github/K-RLange/dh_statistical_biases/blob/master/en/bias_discussion.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/K-RLange/dh_statistical_biases" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/K-RLange/dh_statistical_biases/issues/new?title=Issue%20on%20page%20%2Fbias_discussion.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/bias_discussion.ipynb" target="_blank"
+   class="btn btn-sm btn-download-notebook-button dropdown-item"
+   title="Download notebook file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="_sources/bias_discussion.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>4. Discussion and Quiz</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-have-seen-a-recap">What We Have Seen: A Recap</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#real-world-implications">Real-World Implications</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#omitted-variable-bias">Omitted Variable Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-bias">Sampling Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#survivorship-bias">Survivorship Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p-hacking">P-hacking</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-detect-and-mitigate-each-bias">How to Detect and Mitigate Each Bias</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#detection">Detection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mitigation">Mitigation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ethical-considerations">Ethical Considerations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-omitted-variable-bias">Exercise 1: Omitted Variable Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-sampling-bias">Exercise 2: Sampling Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-survivorship-bias">Exercise 3: Survivorship Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-p-hacking">Exercise 4: P-hacking</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div style="float: right;">
+  <a href="../de/bias_discussion.html" style="margin-left: 10px;">Deutsch</a>
+  <a href="../en/bias_discussion.html">English</a>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="discussion-and-quiz">
+<h1>4. Discussion and Quiz<a class="headerlink" href="#discussion-and-quiz" title="Link to this heading">#</a></h1>
+<section id="what-we-have-seen-a-recap">
+<h2>What We Have Seen: A Recap<a class="headerlink" href="#what-we-have-seen-a-recap" title="Link to this heading">#</a></h2>
+<p>The previous three chapters each demonstrated a different way that a model can go
+wrong not because of a programming error, but because of a flaw in the data or
+the analysis process. The table below summarises the four bias types covered.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Bias</p></th>
+<th class="head"><p>Chapter</p></th>
+<th class="head"><p>What goes wrong</p></th>
+<th class="head"><p>Signature symptom</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Omitted variable</strong></p></td>
+<td><p>1</p></td>
+<td><p>An important predictor is left out of the model</p></td>
+<td><p>Systematic over- or under-prediction for specific groups</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Sampling</strong></p></td>
+<td><p>2</p></td>
+<td><p>Training data does not represent the target population</p></td>
+<td><p>Large errors for underrepresented groups at test time</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Survivorship</strong></p></td>
+<td><p>3</p></td>
+<td><p>Only “successful” cases appear in the data; failures are invisible</p></td>
+<td><p>Model performs well on survivors but poorly on the general population</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>P-hacking</strong></p></td>
+<td><p>3</p></td>
+<td><p>Tests are repeated until a significant result appears</p></td>
+<td><p>Published findings that cannot be replicated</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Although they arise in different ways, all four share a common root: the data or the analysis does not faithfully represent the world the model is supposed to describe.</p>
+</section>
+<hr class="docutils" />
+<section id="real-world-implications">
+<h2>Real-World Implications<a class="headerlink" href="#real-world-implications" title="Link to this heading">#</a></h2>
+<section id="omitted-variable-bias">
+<h3>Omitted Variable Bias<a class="headerlink" href="#omitted-variable-bias" title="Link to this heading">#</a></h3>
+<p>In the first chapter, omitting <em>sex</em> from a wage model caused the model to
+over-predict wages for women and under-predict for men by roughly $5/hr. The
+same mechanism appears whenever a relevant but inconvenient variable is excluded.</p>
+<p>Real-world examples:</p>
+<ul class="simple">
+<li><p><strong>Pay equity audits</strong> that control for job title and tenure but omit the fact
+that women are concentrated in lower-paid job families, masking a structural gap.</p></li>
+<li><p><strong>Credit-scoring models</strong> that exclude race (correctly, as required by law) but
+include zip code or education, which correlate strongly with race and reintroduce
+the bias through a back door.</p></li>
+<li><p><strong>Medical risk scores</strong> that were trained on cost-of-care rather than disease
+severity; because Black patients historically received less care, the model
+systematically underestimated their medical needs.</p></li>
+</ul>
+</section>
+<section id="sampling-bias">
+<h3>Sampling Bias<a class="headerlink" href="#sampling-bias" title="Link to this heading">#</a></h3>
+<p>In the second chapter, training only on young workers meant the model never
+learned that wages grow steeply with experience. Applied to a 50-year-old, it
+predicted a young-worker wage.</p>
+<p>Real-world examples:</p>
+<ul class="simple">
+<li><p><strong>Facial recognition</strong> systems trained predominantly on light-skinned faces that
+perform poorly on darker skin tones. sometimes with false-positive rates ten
+times higher.</p></li>
+<li><p><strong>Clinical trial results</strong> derived from predominantly male or Western populations
+that are then applied to groups not represented in the original study.</p></li>
+<li><p><strong>Recommender systems</strong> built on data from power users (who rate many items)
+that serve casual users poorly.</p></li>
+</ul>
+</section>
+<section id="survivorship-bias">
+<h3>Survivorship Bias<a class="headerlink" href="#survivorship-bias" title="Link to this heading">#</a></h3>
+<p>In the third chapter, an HR archive was missing the short-tenure, low-wage workers
+who had already left: precisely the group hardest to predict. A model trained on
+the archive performed well on long-term employees but poorly on new hires.</p>
+<p>Real-world examples:</p>
+<ul class="simple">
+<li><p><strong>Entrepreneurship research</strong> based on currently operating companies ignores the
+majority of start-ups that failed, producing over-optimistic conclusions about
+what makes businesses succeed.</p></li>
+<li><p><strong>Investment strategies</strong> derived from funds that still exist today, ignoring
+the many funds that closed after poor performance: a well-known problem in
+backtesting.</p></li>
+<li><p><strong>Historical salary benchmarks</strong> built from employees who stayed at a company,
+excluding those who left for better pay elsewhere and therefore underestimating
+the competitive market rate.</p></li>
+</ul>
+</section>
+<section id="p-hacking">
+<h3>P-hacking<a class="headerlink" href="#p-hacking" title="Link to this heading">#</a></h3>
+<p>In the third chapter, running t-tests on 20 completely random yes/no features
+produced one or two “significant” results by chance alone. If only those were
+reported, the literature would contain a false claim about wages.</p>
+<p>Real-world examples:</p>
+<ul class="simple">
+<li><p><strong>Drug trials</strong> that test many dosages, sub-populations, or endpoints and report
+only the ones that crossed the significance threshold, contributing to a
+replication crisis in medicine and psychology.</p></li>
+<li><p><strong>Economic policy analyses</strong> where researchers test many model specifications
+(different control variables, sample restrictions, time windows) and report the
+specification that best supports a preferred conclusion.</p></li>
+<li><p><strong>A/B testing</strong> in product development, where running many simultaneous tests
+and acting on whichever one first reaches <em>p</em> &lt; 0.05 inflates the false-positive
+rate far above the nominal 5%.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="how-to-detect-and-mitigate-each-bias">
+<h2>How to Detect and Mitigate Each Bias<a class="headerlink" href="#how-to-detect-and-mitigate-each-bias" title="Link to this heading">#</a></h2>
+<section id="detection">
+<h3>Detection<a class="headerlink" href="#detection" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Bias</p></th>
+<th class="head"><p>Key diagnostic</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Omitted variable</strong></p></td>
+<td><p>Check whether residuals are systematic across a group you did <em>not</em> include as a feature</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Sampling</strong></p></td>
+<td><p>Compare the distribution of key variables in training data against the target population; evaluate RMSE or accuracy by subgroup</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Survivorship</strong></p></td>
+<td><p>Ask: <em>who is not in this dataset, and why?</em> Look for implausibly low failure or dropout rates</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>P-hacking</strong></p></td>
+<td><p>Check whether all tests and all model specifications were reported; plot the full distribution of p-values. It should be roughly uniform under the null</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="mitigation">
+<h3>Mitigation<a class="headerlink" href="#mitigation" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Bias</p></th>
+<th class="head"><p>Practical remedy</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Omitted variable</strong></p></td>
+<td><p>Include all theoretically relevant variables; use residual plots to check for remaining group-level patterns</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Sampling</strong></p></td>
+<td><p>Collect representative data; if impossible, document the gap and evaluate models on held-out data from underrepresented groups</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Survivorship</strong></p></td>
+<td><p>Seek out data on non-survivors (closed funds, failed firms, drop-outs); weight or flag surviving cases explicitly</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>P-hacking</strong></p></td>
+<td><p>Pre-register hypotheses before collecting data; apply corrections for multiple comparisons (e.g. Bonferroni); report all tests, not just significant ones</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="ethical-considerations">
+<h2>Ethical Considerations<a class="headerlink" href="#ethical-considerations" title="Link to this heading">#</a></h2>
+<p>The biases discussed in this tutorial are not abstract statistical curiosities.
+They affect real people. A wage model that omits sex may be used to set pay.
+A credit model trained on unrepresentative data may deny loans to qualified
+applicants. A published p-hacked study may inform policy.</p>
+<p>A few principles to keep in mind:</p>
+<ul class="simple">
+<li><p><strong>Transparency</strong>: Clearly document what variables the model uses, what data it
+was trained on, and what groups are underrepresented. Users of a model cannot
+correct for biases they do not know about.</p></li>
+<li><p><strong>Accountability</strong>: Establish who is responsible for monitoring model performance
+over time. Bias can emerge or shift as the world changes, even if the model
+itself does not.</p></li>
+<li><p><strong>Evaluate by group, not just overall</strong>: Overall accuracy or RMSE can look
+acceptable while hiding severe disparities for specific subgroups. Always break
+down performance metrics by the groups your model will affect.</p></li>
+<li><p><strong>Report all analyses</strong>: Whether in academia or industry, reporting only the
+analysis that gives the most attractive result is a form of p-hacking. A
+transparent workflow documents what was tried and what was found, including
+null results.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-omitted-variable-bias">
+<h3>Exercise 1: Omitted Variable Bias<a class="headerlink" href="#exercise-1-omitted-variable-bias" title="Link to this heading">#</a></h3>
+<style>
+  .quiz-container {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 750px;
+    font-family: "Segoe UI", Roboto, sans-serif;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+  }
+  .quiz-container p.question {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+  .quiz-container label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0.75rem 0;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    background-color: #eef2ff;
+    cursor: pointer;
+  }
+  .quiz-container button {
+    margin-top: 1.5rem;
+    background-color: #4f46e5;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .quiz-feedback {
+    margin-top: 1.25rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-weight: 500;
+  }
+  .success { background-color: #dcfce7; color: #16a34a; border: 1px solid #16a34a; }
+  .error { background-color: #fee2e2; color: #dc2626; border: 1px solid #dc2626; }
+  .warning { background-color: #fef9c3; color: #a16207; border: 1px solid #facc15; }
+</style>
+
+<div class="quiz-container" id="quiz1">
+  <p class="question">In Chapter 1 we built a wage model that omitted the variable <em>sex</em>. What was the main consequence?</p>
+  <form id="quiz1-form">
+    <label><input type="radio" name="q1" value="a"> The model's overall RMSE became zero</label>
+    <label><input type="radio" name="q1" value="b"> The model systematically over-predicted wages for women and under-predicted for men</label>
+    <label><input type="radio" name="q1" value="c"> The model refused to make any predictions</label>
+    <label><input type="radio" name="q1" value="d"> The model became more accurate because it had fewer inputs to handle</label>
+    <button type="button" onclick="checkQ1()">Submit Answer</button>
+    <p id="quiz1-feedback" class="quiz-feedback" style="display:none;"></p>
+  </form>
+</div>
+
+<script>
+function checkQ1() {
+  const answers = {
+    a: { correct: false, feedback: "Incorrect. Omitting a variable increases error, it does not eliminate it." },
+    b: { correct: true,  feedback: "Correct! Without sex in the model, it applied a single average formula to everyone. Because men earn more on average in the data, the model over-predicted for women and under-predicted for men by about $5/hr in each direction." },
+    c: { correct: false, feedback: "Incorrect. The model still ran, but its predictions were systematically biased for each group." },
+    d: { correct: false, feedback: "Incorrect. Removing a relevant variable increases bias. It does not help." }
+  };
+  const selected = document.querySelector('input[name="q1"]:checked');
+  const feedback = document.getElementById("quiz1-feedback");
+  feedback.style.display = "block";
+  if (!selected) {
+    feedback.textContent = "Please select an answer.";
+    feedback.className = "quiz-feedback warning";
+    return;
+  }
+  const result = answers[selected.value];
+  feedback.textContent = result.feedback;
+  feedback.className = "quiz-feedback " + (result.correct ? "success" : "error");
+}
+</script></section>
+<section id="exercise-2-sampling-bias">
+<h3>Exercise 2: Sampling Bias<a class="headerlink" href="#exercise-2-sampling-bias" title="Link to this heading">#</a></h3>
+<div class="quiz-container" id="quiz2">
+  <p class="question">In Chapter 2 the biased model was trained only on young workers. Why did it perform so badly for older workers at test time?</p>
+  <form id="quiz2-form">
+    <label><input type="radio" name="q2" value="a"> The model had too many parameters and overfit to the young workers</label>
+    <label><input type="radio" name="q2" value="b"> The decision tree had never seen high-experience workers during training, so it could not predict their wages</label>
+    <label><input type="radio" name="q2" value="c"> Older workers' wages are simply impossible to predict from the available features</label>
+    <label><input type="radio" name="q2" value="d"> The test set contained too few older workers to evaluate properly</label>
+    <button type="button" onclick="checkQ2()">Submit Answer</button>
+    <p id="quiz2-feedback" class="quiz-feedback" style="display:none;"></p>
+  </form>
+</div>
+
+<script>
+function checkQ2() {
+  const answers = {
+    a: { correct: false, feedback: "Incorrect. Overfitting means the model fits training noise too closely. That is a separate problem from sampling bias." },
+    b: { correct: true,  feedback: "Correct! A decision tree only learns rules from the data it has seen. Because no middle-aged or older worker appeared in the biased training set, the model's leaves only captured wage levels typical of young workers ($10–16/hr). Any test worker with 20+ years of experience ended up in those leaves and received a young-worker prediction far below the actual wage." },
+    c: { correct: false, feedback: "Incorrect. The balanced model predicted older workers' wages accurately. The problem was the training data, not the task." },
+    d: { correct: false, feedback: "Incorrect. The test set was the same for both models; the difference came entirely from the training data." }
+  };
+  const selected = document.querySelector('input[name="q2"]:checked');
+  const feedback = document.getElementById("quiz2-feedback");
+  feedback.style.display = "block";
+  if (!selected) {
+    feedback.textContent = "Please select an answer.";
+    feedback.className = "quiz-feedback warning";
+    return;
+  }
+  const result = answers[selected.value];
+  feedback.textContent = result.feedback;
+  feedback.className = "quiz-feedback " + (result.correct ? "success" : "error");
+}
+</script></section>
+<section id="exercise-3-survivorship-bias">
+<h3>Exercise 3: Survivorship Bias<a class="headerlink" href="#exercise-3-survivorship-bias" title="Link to this heading">#</a></h3>
+<div class="quiz-container" id="quiz3">
+  <p class="question">In Chapter 3, the company archive was missing short-tenure workers with below-median wages. What best describes the effect on a model trained on this archive?</p>
+  <form id="quiz3-form">
+    <label><input type="radio" name="q3" value="a"> The model became fairer because low-earners were excluded</label>
+    <label><input type="radio" name="q3" value="b"> The model performed well on long-tenure workers but poorly on short-tenure workers, whose wage patterns it had rarely seen</label>
+    <label><input type="radio" name="q3" value="c"> The model overestimated wages for long-tenure workers</label>
+    <label><input type="radio" name="q3" value="d"> There was no effect because tenure was included as a feature</label>
+    <button type="button" onclick="checkQ3()">Submit Answer</button>
+    <p id="quiz3-feedback" class="quiz-feedback" style="display:none;"></p>
+  </form>
+</div>
+
+<script>
+function checkQ3() {
+  const answers = {
+    a: { correct: false, feedback: "Incorrect. Excluding low earners does not make the model fairer. It makes it blind to an important part of the population." },
+    b: { correct: true,  feedback: "Correct! The archive contained mostly workers who had stayed because they earned well. Short-tenure, low-wage workers had largely left and were invisible to the model. When the model was tested on the true population (including those who would have left), its errors for the short-tenure group were much larger than for the long-tenure group." },
+    c: { correct: false, feedback: "Incorrect. The model had plenty of data on long-tenure workers, so its predictions for them were relatively accurate." },
+    d: { correct: false, feedback: "Incorrect. Including tenure as a feature does not compensate for the fact that most short-tenure, low-wage workers simply did not appear in the training data." }
+  };
+  const selected = document.querySelector('input[name="q3"]:checked');
+  const feedback = document.getElementById("quiz3-feedback");
+  feedback.style.display = "block";
+  if (!selected) {
+    feedback.textContent = "Please select an answer.";
+    feedback.className = "quiz-feedback warning";
+    return;
+  }
+  const result = answers[selected.value];
+  feedback.textContent = result.feedback;
+  feedback.className = "quiz-feedback " + (result.correct ? "success" : "error");
+}
+</script></section>
+<section id="exercise-4-p-hacking">
+<h3>Exercise 4: P-hacking<a class="headerlink" href="#exercise-4-p-hacking" title="Link to this heading">#</a></h3>
+<div class="quiz-container" id="quiz4">
+  <p class="question">In Chapter 3, we tested 20 completely random yes/no features for a wage effect and found one or two "significant" results (p &lt; 0.05). What is the correct interpretation?</p>
+  <form id="quiz4-form">
+    <label><input type="radio" name="q4" value="a"> The significant features genuinely affect wages and should be reported</label>
+    <label><input type="radio" name="q4" value="b"> The result confirms that some personal traits do influence earnings</label>
+    <label><input type="radio" name="q4" value="c"> With 20 independent tests at a 5% threshold, roughly one false positive is expected by chance.</label>
+    <label><input type="radio" name="q4" value="d"> The p-value threshold should have been set at 1% instead of 5%</label>
+    <button type="button" onclick="checkQ4()">Submit Answer</button>
+    <p id="quiz4-feedback" class="quiz-feedback" style="display:none;"></p>
+  </form>
+</div>
+
+<script>
+function checkQ4() {
+  const answers = {
+    a: { correct: false, feedback: "Incorrect. The features were generated randomly and have no real relationship to wages. A significant p-value only means the result is unlikely under the null hypothesis. It does not prove a real effect, especially when many tests were run." },
+    b: { correct: false, feedback: "Incorrect. The features (e.g. 'owns a pet', 'prefers mountains') were assigned randomly and cannot reflect genuine wage effects." },
+    c: { correct: true,  feedback: "Correct! With 20 tests and a 5% threshold, we expect 20 × 0.05 = 1 false positive even when nothing is truly significant. Reporting only the 'significant' result, without mentioning the other 19 tests, is p-hacking. The standard remedy is to report all tests and, when running many comparisons, apply a correction such as the Bonferroni adjustment." },
+    d: { correct: false, feedback: "Partially right that a stricter threshold reduces false positives, but that alone does not solve the problem of running many tests and reporting only the significant ones. The core issue is transparency about all tests performed." }
+  };
+  const selected = document.querySelector('input[name="q4"]:checked');
+  const feedback = document.getElementById("quiz4-feedback");
+  feedback.style.display = "block";
+  if (!selected) {
+    feedback.textContent = "Please select an answer.";
+    feedback.className = "quiz-feedback warning";
+    return;
+  }
+  const result = answers[selected.value];
+  feedback.textContent = result.feedback;
+  feedback.className = "quiz-feedback " + (result.correct ? "success" : "error");
+}
+</script></section>
+</section>
+<hr class="docutils" />
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<p>Across the three preceding chapters, we encountered four distinct ways a model can
+produce systematically wrong results:</p>
+<ol class="arabic simple">
+<li><p><strong>Omitted variable bias</strong> arises when a variable that genuinely affects the
+outcome is left out of the model. The model cannot account for group differences
+it cannot see, and its errors become patterned rather than random.</p></li>
+<li><p><strong>Sampling bias</strong> arises when the training data does not reflect the population
+the model will be applied to. Groups that appear rarely in training will be
+predicted poorly and the overall accuracy score may hide this entirely.</p></li>
+<li><p><strong>Survivorship bias</strong> is a special case of sampling bias: only the “survivors”
+of some selection process appear in the data. The model learns about successful
+or stable cases and cannot generalise to those that did not survive.</p></li>
+<li><p><strong>P-hacking</strong> is not a bias in the data but in the analysis: running many tests
+and reporting only the significant ones inflates the false-positive rate, leading
+to findings that do not replicate.</p></li>
+</ol>
+<p>The common thread is that <strong>what is absent from the data or the report matters as
+much as what is present</strong>. Asking “who or what is missing here, and why?” is one
+of the most powerful questions a researcher or practitioner can ask before trusting
+a model’s output.</p>
+</section>
+</section>
+
+        <script type="text/x-thebe-config">
+        {
+            "rootPath": "./",
+            "requestKernel": true,
+            "useJupyterLite": true,
+            "useBinder": false,
+            "kernelOptions": {
+                "path": "/"
+            },
+            "codeMirrorConfig": {
+                "theme": "default",
+                "mode": "python"
+            },
+            "mountRestartButton": false,
+            "mountRestartallButton": false
+        }
+        </script>
+        <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="bias_further.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">3. More Biases: Survivorship and P-hacking</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-have-seen-a-recap">What We Have Seen: A Recap</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#real-world-implications">Real-World Implications</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#omitted-variable-bias">Omitted Variable Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-bias">Sampling Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#survivorship-bias">Survivorship Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p-hacking">P-hacking</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-detect-and-mitigate-each-bias">How to Detect and Mitigate Each Bias</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#detection">Detection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mitigation">Mitigation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ethical-considerations">Ethical Considerations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-omitted-variable-bias">Exercise 1: Omitted Variable Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-sampling-bias">Exercise 2: Sampling Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-survivorship-bias">Exercise 3: Survivorship Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-p-hacking">Exercise 4: P-hacking</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kai-Robin Lange, Lisa-Marie Eckardt, Henrike Weinert
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p>
+  &copy; 2026 TU Dortmund University. Content licensed under <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank" rel="noopener">GNU GPL v3.0</a>.
+</p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

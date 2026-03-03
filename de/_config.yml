@@ -1,0 +1,51 @@
+# Book settings
+# Learn more at https://jupyterbook.org/customize/config.html
+
+title: Impacts of Data Manipulation
+author: Kai-Robin Lange, Lisa-Marie Eckardt, Henrike Weinert
+logo: logo.png
+exclude_patterns: [_build, Thumbs.db, .DS_Store, "**.ipynb_checkpoints", ]
+
+# Force re-execution of notebooks on each build.
+# See https://jupyterbook.org/content/execute.html
+execute:
+  execute_notebooks: auto
+
+# Define the name of the latex output file for PDF builds
+latex:
+  latex_documents:
+    targetname: book.tex
+
+launch_buttons:
+  colab_url: "https://deepnote.com" #"https://colab.research.google.com"
+  thebe: true
+  binderhub_url: "https://mybinder.org/"
+  jupyterhub_url: "https://jupyterhub.uni-muenster.de"
+
+sphinx:
+  config:
+    html_show_copyright: false
+    html_js_files:
+    - https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js
+    thebe_config:
+      use_thebe_lite: true
+      auto-execute-page: true
+      thebe-init: true
+      exclude_patterns: ["**/_*.yml", "**/*.md", "**/*.ipynb"]
+
+# Information about where the book exists on the web
+repository:
+  url: https://github.com/K-RLange/dh_data_manipulation  # Online location of your book
+  path_to_book: python_tutorial  # Optional path to your book, relative to the repository root
+  branch: master  # Which branch of the repository should be used when creating links (optional)
+
+# Add GitHub buttons to your book
+# See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
+html:
+  use_issues_button: true
+  use_repository_button: true
+  extra_footer: |
+    <p>
+      &copy; 2026 TU Dortmund University. Content licensed under <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank" rel="noopener">GNU GPL v3.0</a>.
+    </p>
+

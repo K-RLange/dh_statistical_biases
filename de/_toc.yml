@@ -1,0 +1,10 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+chapters:
+- file: bias_baseline
+- file: sampling_bias
+- file: bias_further
+- file: bias_discussion

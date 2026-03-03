@@ -44,6 +44,16 @@ under-predicts their wages.
 
 ```{code-cell}
 :tags: ["remove_input", "remove_output"]
+# Install packages when running in JupyterLite (Pyodide) via Thebe.
+try:
+    import micropip
+    await micropip.install(['scikit-learn', 'ipywidgets', 'matplotlib', 'pandas', 'numpy'])
+except ImportError:
+    pass
+```
+
+```{code-cell}
+:tags: ["remove_input", "remove_output"]
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt

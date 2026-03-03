@@ -38,6 +38,17 @@ exactly what happens when we **leave sex out** of a wage prediction model.
 
 
 ```{code-cell}
+:tags: ["remove_input", "remove_output"]
+# Install packages when running in JupyterLite (Pyodide) via Thebe.
+# In a regular Python environment micropip does not exist, so the except branch runs instead.
+try:
+    import micropip
+    await micropip.install(['scikit-learn', 'ipywidgets', 'matplotlib', 'pandas', 'numpy'])
+except ImportError:
+    pass
+```
+
+```{code-cell}
 # ── Import the tools we need ───────────────────────────────────────────────
 import pandas as pd                                    # loading and handling data
 import numpy as np                                     # numerical operations

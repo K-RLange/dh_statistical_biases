@@ -25,6 +25,16 @@ you can recognise the pattern in your own work.
 
 ```{code-cell}
 :tags: ["remove_input", "remove_output"]
+# Install packages when running in JupyterLite (Pyodide) via Thebe.
+try:
+    import micropip
+    await micropip.install(['scikit-learn', 'scipy', 'matplotlib', 'pandas', 'numpy'])
+except ImportError:
+    pass
+```
+
+```{code-cell}
+:tags: ["remove_input", "remove_output"]
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt

@@ -346,3 +346,4 @@ how omitting a variable introduces bias:
 - **Other variables matter too**: Use the interactive tool above to explore what
   happens when you remove education, tenure, or other variables — some omissions
   affect women more, others affect men more.
+ 

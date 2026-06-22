@@ -49,7 +49,7 @@ except ImportError:
 ```
 
 ```{code-cell}
-# ── Import the tools we need ───────────────────────────────────────────────
+# ── Import the tools we need ─────────────────────────────────────────────
 import pandas as pd                                    # loading and handling data
 import numpy as np                                     # numerical operations
 import matplotlib.pyplot as plt                        # creating charts

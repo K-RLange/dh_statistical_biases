@@ -15,7 +15,7 @@ If you have any questions, please do not hesitate to send us an email:
 - Henrik Weinert ([henrike.weinert@tu-dortmund.de](mailto:henrike.weinert@tu-dortmund.de))
 
 ```{attention}
-To edit and run the Python code in this course, you will find this ![live code symbol](code_symbol.PNG) symbol on the top of each page that contains Python code. You can click on it and then choose "Live code" to edit and run code yourself. Please feel free to test different things out and play around with the code. You cannot break anything here and nobody (including us) can see your code, so feel free to experiment.
+To edit and run the Python code in this course, you will find this ![live code symbol](code_symbol.PNG) symbol on the top of each page that contains Python code. You can click on it and then choose "Live code" to edit and run code yourself. The first time you do this, it will take several minutes to load the live code environment. This is normal. You will be able to run your code when it says "ready". Please feel free to test different things out and play around with the code. You cannot break anything here and nobody (including us) can see your code, so feel free to experiment.
 ```
 
 

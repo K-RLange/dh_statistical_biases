@@ -68,8 +68,6 @@ const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -411,7 +409,7 @@ You can complete this course in your browser, without the need to install Python
 </ul>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>To edit and run the Python code in this course, you will find this <img alt="live code symbol" src="_images/code_symbol.PNG" /> symbol on the top of each page that contains Python code. You can click on it and then choose “Live code” to edit and run code yourself. Please feel free to test different things out and play around with the code. You cannot break anything here and nobody (including us) can see your code, so feel free to experiment.</p>
+<p>To edit and run the Python code in this course, you will find this <img alt="live code symbol" src="_images/code_symbol.PNG" /> symbol on the top of each page that contains Python code. You can click on it and then choose “Live code” to edit and run code yourself. The first time you do this, it will take several minutes to load the live code environment. This is normal. You will be able to run your code when it says “ready”. Please feel free to test different things out and play around with the code. You cannot break anything here and nobody (including us) can see your code, so feel free to experiment.</p>
 </div>
 <div class="toctree-wrapper compound">
 <ul>
@@ -436,7 +434,7 @@ You can complete this course in your browser, without the need to install Python
             },
             kernelOptions: {
                 name: "python3",
-                path: "./."
+                path: "en/."
             },
             predefinedOutput: true
         }

@@ -3,19 +3,19 @@
   <a href="../en/intro.html">🇬🇧 English</a>
 </div>
 
-# The impact of statistical biases - Data Literacy at TU Dortmund University
+# Der Einfluss statistischer Verzerrungen - Data Literacy an der TU Dortmund
 
-This is a small interactive tutorial that teaches you about different kinds of biases affect the performance of a statistical model.
-In this tutorial, Python code is used to work with artificial datasets and create statistical models and plots. 
-You will not have to code yourself, but you can edit and alter the code if you want to try changing up the model. 
-You can complete this course in your browser, without the need to install Python on your local machine.
+Dies ist ein kleines interaktives Tutorial, das dir vermittelt, wie verschiedene Arten von Verzerrungen (Bias) die Güte eines statistischen Modells beeinflussen.
+In diesem Tutorial wird Python-Code verwendet, um mit künstlichen Datensätzen zu arbeiten und statistische Modelle und Grafiken zu erstellen.
+Du musst dabei nicht selbst programmieren, kannst den Code aber bearbeiten und verändern, wenn du damit experimentieren möchtest.
+Du kannst diesen Kurs vollständig in deinem Browser durchführen, ohne Python auf deinem eigenen Rechner installieren zu müssen.
 
-If you have any questions, please do not hesitate to send us an email:
+Falls du Fragen hast, schreib uns gerne eine E-Mail:
 - Kai-Robin Lange ([kalange@statistik.tu-dortmund.de](mailto:kalange@statistik.tu-dortmund.de))
 - Henrik Weinert ([henrike.weinert@tu-dortmund.de](mailto:henrike.weinert@tu-dortmund.de))
 
 ```{attention}
-To edit and run the Python code in this course, you will find this ![live code symbol](code_symbol.PNG) symbol on the top of each page that contains Python code. You can click on it and then choose "Live code" to edit and run code yourself. Please feel free to test different things out and play around with the code. You cannot break anything here and nobody (including us) can see your code, so feel free to experiment.
+Um den Python-Code in diesem Kurs zu bearbeiten und auszuführen, findest du oben auf jeder Seite mit Python-Code dieses Symbol: ![live code symbol](code_symbol.PNG). Klicke darauf und wähle dann "Live code" aus, um den Code selbst zu bearbeiten und auszuführen. Probiere gerne verschiedene Dinge aus und experimentiere mit dem Code. Du kannst hier nichts kaputt machen, und niemand (auch wir nicht) kann deinen Code sehen - experimentiere also nach Belieben.
 ```
 
 

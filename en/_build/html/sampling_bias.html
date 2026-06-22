@@ -68,8 +68,6 @@ const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'sampling_bias';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -774,9 +772,9 @@ accurate overall, because it is correct about the many young workers in the
 test set. Only group-level evaluation
 reveals how badly it fails for older workers.</p></li>
 <li><p><strong>The biased model is stuck at young-worker wages</strong>: trained only on workers
-earning <span class="math notranslate nohighlight">\(10–16/hr, the model's predictions are capped near that range. When
+earning $10–16/hr, the model’s predictions are capped near that range. When
 it encounters a 50-year-old with 25 years of experience, it predicts around
-\)</span>12–14/hr, even though the actual wage is closer to $22/hr.</p></li>
+$12–14/hr, even though the actual wage is closer to $22/hr.</p></li>
 <li><p><strong>Older workers are hit hardest</strong>: the further an age group is from the
 training data, the larger the prediction error. The 55+ group, which earns
 the most, suffers the greatest under-prediction.</p></li>
@@ -804,7 +802,7 @@ of older workers is added back.</p></li>
             },
             kernelOptions: {
                 name: "python3",
-                path: "./."
+                path: "en/."
             },
             predefinedOutput: true
         }

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>The impact of statistical biases - Data Literacy at TU Dortmund University &#8212; Impacts of Data Manipulation</title>
+    <title>Der Einfluss statistischer Verzerrungen - Data Literacy an der TU Dortmund &#8212; Impacts of Data Manipulation</title>
   
   
   
@@ -56,23 +56,23 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script defer="defer" src="_static/refresh.js?v=9bea9b76"></script>
-    <script>const thebe_selector = ".thebe,.cell"
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
-    <script defer="defer" src="_static/sphinx-thebe-lite.js?v=2a71eeb1"></script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const thebe_selector = ".thebe,.cell"
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="1. Omitted Variable Bias" href="bias_baseline.html" />
+    <link rel="next" title="1. Verzerrung durch ausgelassene Variablen (Omitted Variable Bias)" href="bias_baseline.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -186,15 +186,15 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1 current active">
                 <a class="reference internal" href="#">
-                    The impact of statistical biases - Data Literacy at TU Dortmund University
+                    Der Einfluss statistischer Verzerrungen - Data Literacy an der TU Dortmund
                 </a>
             </li>
         </ul>
         <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="bias_baseline.html">1. Omitted Variable Bias</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sampling_bias.html">2. Sampling Bias</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bias_further.html">3. More Biases: Survivorship and P-hacking</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bias_discussion.html">4. Discussion and Quiz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bias_baseline.html">1. Verzerrung durch ausgelassene Variablen (Omitted Variable Bias)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_bias.html">2. Stichprobenverzerrung (Sampling Bias)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bias_further.html">3. Weitere Verzerrungen: Survivorship Bias und P-Hacking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bias_discussion.html">4. Diskussion und Quiz</a></li>
 </ul>
 
     </div>
@@ -378,7 +378,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>The impact of statistical biases - Data Literacy at TU Dortmund University</h1>
+    <h1>Der Einfluss statistischer Verzerrungen - Data Literacy an der TU Dortmund</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -396,46 +396,47 @@ document.write(`
   <a href="../de/intro.html" style="margin-left: 10px;">🇩🇪 Deutsch</a>
   <a href="../en/intro.html">🇬🇧 English</a>
 </div>
-<section class="tex2jax_ignore mathjax_ignore" id="the-impact-of-statistical-biases-data-literacy-at-tu-dortmund-university">
-<h1>The impact of statistical biases - Data Literacy at TU Dortmund University<a class="headerlink" href="#the-impact-of-statistical-biases-data-literacy-at-tu-dortmund-university" title="Link to this heading">#</a></h1>
-<p>This is a small interactive tutorial that teaches you about different kinds of biases affect the performance of a statistical model.
-In this tutorial, Python code is used to work with artificial datasets and create statistical models and plots.
-You will not have to code yourself, but you can edit and alter the code if you want to try changing up the model.
-You can complete this course in your browser, without the need to install Python on your local machine.</p>
-<p>If you have any questions, please do not hesitate to send us an email:</p>
+<section class="tex2jax_ignore mathjax_ignore" id="der-einfluss-statistischer-verzerrungen-data-literacy-an-der-tu-dortmund">
+<h1>Der Einfluss statistischer Verzerrungen - Data Literacy an der TU Dortmund<a class="headerlink" href="#der-einfluss-statistischer-verzerrungen-data-literacy-an-der-tu-dortmund" title="Link to this heading">#</a></h1>
+<p>Dies ist ein kleines interaktives Tutorial, das dir vermittelt, wie verschiedene Arten von Verzerrungen (Bias) die Güte eines statistischen Modells beeinflussen.
+In diesem Tutorial wird Python-Code verwendet, um mit künstlichen Datensätzen zu arbeiten und statistische Modelle und Grafiken zu erstellen.
+Du musst dabei nicht selbst programmieren, kannst den Code aber bearbeiten und verändern, wenn du damit experimentieren möchtest.
+Du kannst diesen Kurs vollständig in deinem Browser durchführen, ohne Python auf deinem eigenen Rechner installieren zu müssen.</p>
+<p>Falls du Fragen hast, schreib uns gerne eine E-Mail:</p>
 <ul class="simple">
 <li><p>Kai-Robin Lange (<a class="reference external" href="mailto:kalange&#37;&#52;&#48;statistik&#46;tu-dortmund&#46;de">kalange<span>&#64;</span>statistik<span>&#46;</span>tu-dortmund<span>&#46;</span>de</a>)</p></li>
 <li><p>Henrik Weinert (<a class="reference external" href="mailto:henrike&#46;weinert&#37;&#52;&#48;tu-dortmund&#46;de">henrike<span>&#46;</span>weinert<span>&#64;</span>tu-dortmund<span>&#46;</span>de</a>)</p></li>
 </ul>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>To edit and run the Python code in this course, you will find this <img alt="live code symbol" src="_images/code_symbol.PNG" /> symbol on the top of each page that contains Python code. You can click on it and then choose “Live code” to edit and run code yourself. Please feel free to test different things out and play around with the code. You cannot break anything here and nobody (including us) can see your code, so feel free to experiment.</p>
+<p>Um den Python-Code in diesem Kurs zu bearbeiten und auszuführen, findest du oben auf jeder Seite mit Python-Code dieses Symbol: <img alt="live code symbol" src="_images/code_symbol.PNG" />. Klicke darauf und wähle dann “Live code” aus, um den Code selbst zu bearbeiten und auszuführen. Probiere gerne verschiedene Dinge aus und experimentiere mit dem Code. Du kannst hier nichts kaputt machen, und niemand (auch wir nicht) kann deinen Code sehen - experimentiere also nach Belieben.</p>
 </div>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="bias_baseline.html">1. Omitted Variable Bias</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sampling_bias.html">2. Sampling Bias</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bias_further.html">3. More Biases: Survivorship and P-hacking</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bias_discussion.html">4. Discussion and Quiz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bias_baseline.html">1. Verzerrung durch ausgelassene Variablen (Omitted Variable Bias)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_bias.html">2. Stichprobenverzerrung (Sampling Bias)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bias_further.html">3. Weitere Verzerrungen: Survivorship Bias und P-Hacking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bias_discussion.html">4. Diskussion und Quiz</a></li>
 </ul>
 </div>
 </section>
 
         <script type="text/x-thebe-config">
         {
-            "rootPath": "./",
-            "requestKernel": true,
-            "useJupyterLite": true,
-            "useBinder": false,
-            "kernelOptions": {
-                "path": "/"
+            requestKernel: true,
+            binderOptions: {
+                repo: "K-RLange/dh_statistical_biases",
+                ref: "master",
             },
-            "codeMirrorConfig": {
-                "theme": "default",
-                "mode": "python"
+            codeMirrorConfig: {
+                theme: "default",
+                mode: "python"
             },
-            "mountRestartButton": false,
-            "mountRestartallButton": false
+            kernelOptions: {
+                name: "python3",
+                path: "en/."
+            },
+            predefinedOutput: true
         }
         </script>
         <script>kernelName = 'python3'</script>
@@ -455,7 +456,7 @@ You can complete this course in your browser, without the need to install Python
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">1. Omitted Variable Bias</p>
+        <p class="prev-next-title">1. Verzerrung durch ausgelassene Variablen (Omitted Variable Bias)</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4. Discussion and Quiz &#8212; Impacts of Data Manipulation</title>
+    <title>4. Diskussion und Quiz &#8212; Impacts of Data Manipulation</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/thebe.css?v=9bca0c2f" />
     <link rel="stylesheet" type="text/css" href="_static/code.css?v=4bf7ba55" />
@@ -56,13 +56,15 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script defer="defer" src="_static/refresh.js?v=9bea9b76"></script>
-    <script>const thebe_selector = ".thebe,.cell"
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
-    <script defer="defer" src="_static/sphinx-thebe-lite.js?v=2a71eeb1"></script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const thebe_selector = ".thebe,.cell"
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
@@ -70,7 +72,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="3. More Biases: Survivorship and P-hacking" href="bias_further.html" />
+    <link rel="prev" title="3. Weitere Verzerrungen: Survivorship Bias und P-Hacking" href="bias_further.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -182,15 +184,15 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    The impact of statistical biases - Data Literacy at TU Dortmund University
+                    Der Einfluss statistischer Verzerrungen - Data Literacy an der TU Dortmund
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="bias_baseline.html">1. Omitted Variable Bias</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sampling_bias.html">2. Sampling Bias</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bias_further.html">3. More Biases: Survivorship and P-hacking</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Discussion and Quiz</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bias_baseline.html">1. Verzerrung durch ausgelassene Variablen (Omitted Variable Bias)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_bias.html">2. Stichprobenverzerrung (Sampling Bias)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bias_further.html">3. Weitere Verzerrungen: Survivorship Bias und P-Hacking</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Diskussion und Quiz</a></li>
 </ul>
 
     </div>
@@ -478,7 +480,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>4. Discussion and Quiz</h1>
+    <h1>4. Diskussion und Quiz</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -488,28 +490,28 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-have-seen-a-recap">What We Have Seen: A Recap</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#real-world-implications">Real-World Implications</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#omitted-variable-bias">Omitted Variable Bias</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-bias">Sampling Bias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#was-wir-gesehen-haben-eine-zusammenfassung">Was wir gesehen haben: Eine Zusammenfassung</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#auswirkungen-in-der-praxis">Auswirkungen in der Praxis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verzerrung-durch-ausgelassene-variablen">Verzerrung durch ausgelassene Variablen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stichprobenverzerrung">Stichprobenverzerrung</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#survivorship-bias">Survivorship Bias</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p-hacking">P-hacking</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p-hacking">P-Hacking</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-detect-and-mitigate-each-bias">How to Detect and Mitigate Each Bias</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#detection">Detection</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mitigation">Mitigation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wie-man-jede-verzerrung-erkennt-und-abmildert">Wie man jede Verzerrung erkennt und abmildert</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#erkennung">Erkennung</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#abmilderung">Abmilderung</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ethical-considerations">Ethical Considerations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-omitted-variable-bias">Exercise 1: Omitted Variable Bias</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-sampling-bias">Exercise 2: Sampling Bias</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-survivorship-bias">Exercise 3: Survivorship Bias</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-p-hacking">Exercise 4: P-hacking</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ethische-uberlegungen">Ethische Überlegungen</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ubungen">Übungen</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ubung-1-verzerrung-durch-ausgelassene-variablen">Übung 1: Verzerrung durch ausgelassene Variablen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ubung-2-stichprobenverzerrung">Übung 2: Stichprobenverzerrung</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ubung-3-survivorship-bias">Übung 3: Survivorship Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ubung-4-p-hacking">Übung 4: P-Hacking</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zusammenfassung">Zusammenfassung</a></li>
 </ul>
             </nav>
         </div>
@@ -525,168 +527,181 @@ document.write(`
   <a href="../de/bias_discussion.html" style="margin-left: 10px;">Deutsch</a>
   <a href="../en/bias_discussion.html">English</a>
 </div>
-<section class="tex2jax_ignore mathjax_ignore" id="discussion-and-quiz">
-<h1>4. Discussion and Quiz<a class="headerlink" href="#discussion-and-quiz" title="Link to this heading">#</a></h1>
-<section id="what-we-have-seen-a-recap">
-<h2>What We Have Seen: A Recap<a class="headerlink" href="#what-we-have-seen-a-recap" title="Link to this heading">#</a></h2>
-<p>The previous three chapters each demonstrated a different way that a model can go
-wrong not because of a programming error, but because of a flaw in the data or
-the analysis process. The table below summarises the four bias types covered.</p>
+<section class="tex2jax_ignore mathjax_ignore" id="diskussion-und-quiz">
+<h1>4. Diskussion und Quiz<a class="headerlink" href="#diskussion-und-quiz" title="Link to this heading">#</a></h1>
+<section id="was-wir-gesehen-haben-eine-zusammenfassung">
+<h2>Was wir gesehen haben: Eine Zusammenfassung<a class="headerlink" href="#was-wir-gesehen-haben-eine-zusammenfassung" title="Link to this heading">#</a></h2>
+<p>Die vorherigen drei Kapitel haben jeweils eine andere Art gezeigt, wie ein Modell
+nicht durch einen Programmierfehler, sondern durch einen Mangel in den Daten oder
+im Analyseprozess danebenliegen kann. Die folgende Tabelle fasst die vier
+behandelten Arten von Verzerrungen zusammen.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p>Bias</p></th>
-<th class="head"><p>Chapter</p></th>
-<th class="head"><p>What goes wrong</p></th>
-<th class="head"><p>Signature symptom</p></th>
+<tr class="row-odd"><th class="head"><p>Verzerrung</p></th>
+<th class="head"><p>Kapitel</p></th>
+<th class="head"><p>Was schiefgeht</p></th>
+<th class="head"><p>Charakteristisches Symptom</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><strong>Omitted variable</strong></p></td>
+<tr class="row-even"><td><p><strong>Ausgelassene Variable</strong></p></td>
 <td><p>1</p></td>
-<td><p>An important predictor is left out of the model</p></td>
-<td><p>Systematic over- or under-prediction for specific groups</p></td>
+<td><p>Ein wichtiger Prädiktor fehlt im Modell</p></td>
+<td><p>Systematische Über- oder Unterschätzung für bestimmte Gruppen</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>Sampling</strong></p></td>
+<tr class="row-odd"><td><p><strong>Stichprobe</strong></p></td>
 <td><p>2</p></td>
-<td><p>Training data does not represent the target population</p></td>
-<td><p>Large errors for underrepresented groups at test time</p></td>
+<td><p>Trainingsdaten repräsentieren nicht die Zielpopulation</p></td>
+<td><p>Große Fehler für unterrepräsentierte Gruppen zur Testzeit</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Survivorship</strong></p></td>
 <td><p>3</p></td>
-<td><p>Only “successful” cases appear in the data; failures are invisible</p></td>
-<td><p>Model performs well on survivors but poorly on the general population</p></td>
+<td><p>Nur “erfolgreiche” Fälle erscheinen in den Daten; Fehlschläge sind unsichtbar</p></td>
+<td><p>Modell performt gut bei Überlebenden, aber schlecht in der Gesamtpopulation</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>P-hacking</strong></p></td>
+<tr class="row-odd"><td><p><strong>P-Hacking</strong></p></td>
 <td><p>3</p></td>
-<td><p>Tests are repeated until a significant result appears</p></td>
-<td><p>Published findings that cannot be replicated</p></td>
+<td><p>Tests werden wiederholt, bis ein signifikantes Ergebnis erscheint</p></td>
+<td><p>Veröffentlichte Befunde, die sich nicht replizieren lassen</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>Although they arise in different ways, all four share a common root: the data or the analysis does not faithfully represent the world the model is supposed to describe.</p>
+<p>Obwohl sie auf unterschiedliche Weise entstehen, haben alle vier eine gemeinsame
+Wurzel: Die Daten oder die Analyse bilden die Welt, die das Modell beschreiben
+soll, nicht getreu ab.</p>
 </section>
 <hr class="docutils" />
-<section id="real-world-implications">
-<h2>Real-World Implications<a class="headerlink" href="#real-world-implications" title="Link to this heading">#</a></h2>
-<section id="omitted-variable-bias">
-<h3>Omitted Variable Bias<a class="headerlink" href="#omitted-variable-bias" title="Link to this heading">#</a></h3>
-<p>In the first chapter, omitting <em>sex</em> from a wage model caused the model to
-over-predict wages for women and under-predict for men by roughly $5/hr. The
-same mechanism appears whenever a relevant but inconvenient variable is excluded.</p>
-<p>Real-world examples:</p>
+<section id="auswirkungen-in-der-praxis">
+<h2>Auswirkungen in der Praxis<a class="headerlink" href="#auswirkungen-in-der-praxis" title="Link to this heading">#</a></h2>
+<section id="verzerrung-durch-ausgelassene-variablen">
+<h3>Verzerrung durch ausgelassene Variablen<a class="headerlink" href="#verzerrung-durch-ausgelassene-variablen" title="Link to this heading">#</a></h3>
+<p>Im ersten Kapitel führte das Weglassen des <em>Geschlechts</em> aus einem Lohnmodell
+dazu, dass das Modell die Löhne von Frauen um etwa 5 $/Std. überschätzte und die
+von Männern unterschätzte. Derselbe Mechanismus tritt immer dann auf, wenn eine
+relevante, aber unbequeme Variable ausgeschlossen wird.</p>
+<p>Beispiele aus der Praxis:</p>
 <ul class="simple">
-<li><p><strong>Pay equity audits</strong> that control for job title and tenure but omit the fact
-that women are concentrated in lower-paid job families, masking a structural gap.</p></li>
-<li><p><strong>Credit-scoring models</strong> that exclude race (correctly, as required by law) but
-include zip code or education, which correlate strongly with race and reintroduce
-the bias through a back door.</p></li>
-<li><p><strong>Medical risk scores</strong> that were trained on cost-of-care rather than disease
-severity; because Black patients historically received less care, the model
-systematically underestimated their medical needs.</p></li>
+<li><p><strong>Lohngerechtigkeits-Audits</strong>, die nach Berufsbezeichnung und
+Betriebszugehörigkeit kontrollieren, aber die Tatsache auslassen, dass Frauen
+sich in schlechter bezahlten Berufsfeldern konzentrieren, wodurch eine
+strukturelle Lücke verschleiert wird.</p></li>
+<li><p><strong>Kreditscoring-Modelle</strong>, die die ethnische Zugehörigkeit ausschließen
+(korrekt, wie gesetzlich vorgeschrieben), aber Postleitzahl oder Bildung
+einbeziehen, die stark mit ethnischer Zugehörigkeit korrelieren und die
+Verzerrung durch eine Hintertür wieder einführen.</p></li>
+<li><p><strong>Medizinische Risiko-Scores</strong>, die anhand der Behandlungskosten statt der
+Krankheitsschwere trainiert wurden; da Schwarze Patientinnen und Patienten
+historisch weniger Behandlung erhielten, unterschätzte das Modell systematisch
+ihren medizinischen Bedarf.</p></li>
 </ul>
 </section>
-<section id="sampling-bias">
-<h3>Sampling Bias<a class="headerlink" href="#sampling-bias" title="Link to this heading">#</a></h3>
-<p>In the second chapter, training only on young workers meant the model never
-learned that wages grow steeply with experience. Applied to a 50-year-old, it
-predicted a young-worker wage.</p>
-<p>Real-world examples:</p>
+<section id="stichprobenverzerrung">
+<h3>Stichprobenverzerrung<a class="headerlink" href="#stichprobenverzerrung" title="Link to this heading">#</a></h3>
+<p>Im zweiten Kapitel bedeutete das Training nur mit jungen Arbeitnehmern, dass das
+Modell nie lernte, dass Löhne mit der Erfahrung stark ansteigen. Angewendet auf
+eine 50-jährige Person sagte es einen Lohn wie für junge Arbeitnehmer voraus.</p>
+<p>Beispiele aus der Praxis:</p>
 <ul class="simple">
-<li><p><strong>Facial recognition</strong> systems trained predominantly on light-skinned faces that
-perform poorly on darker skin tones. sometimes with false-positive rates ten
-times higher.</p></li>
-<li><p><strong>Clinical trial results</strong> derived from predominantly male or Western populations
-that are then applied to groups not represented in the original study.</p></li>
-<li><p><strong>Recommender systems</strong> built on data from power users (who rate many items)
-that serve casual users poorly.</p></li>
+<li><p><strong>Gesichtserkennungssysteme</strong>, die überwiegend mit hellhäutigen Gesichtern
+trainiert wurden und bei dunkleren Hauttönen schlecht abschneiden — teilweise
+mit zehnmal höheren Falsch-Positiv-Raten.</p></li>
+<li><p><strong>Ergebnisse klinischer Studien</strong>, die überwiegend von männlichen oder
+westlichen Populationen stammen und dann auf Gruppen angewendet werden, die in
+der ursprünglichen Studie nicht vertreten waren.</p></li>
+<li><p><strong>Empfehlungssysteme</strong>, die auf Daten von Power-Usern beruhen (die viele
+Artikel bewerten) und gelegentlichen Nutzerinnen und Nutzern schlecht dienen.</p></li>
 </ul>
 </section>
 <section id="survivorship-bias">
 <h3>Survivorship Bias<a class="headerlink" href="#survivorship-bias" title="Link to this heading">#</a></h3>
-<p>In the third chapter, an HR archive was missing the short-tenure, low-wage workers
-who had already left: precisely the group hardest to predict. A model trained on
-the archive performed well on long-term employees but poorly on new hires.</p>
-<p>Real-world examples:</p>
+<p>Im dritten Kapitel fehlten in einem Personalarchiv genau die Arbeitnehmer mit
+kurzer Betriebszugehörigkeit und niedrigem Lohn, die das Unternehmen bereits
+verlassen hatten — genau die Gruppe, die am schwersten vorherzusagen ist. Ein auf
+dem Archiv trainiertes Modell schnitt bei langjährigen Mitarbeitenden gut ab,
+aber schlecht bei Neueinstellungen.</p>
+<p>Beispiele aus der Praxis:</p>
 <ul class="simple">
-<li><p><strong>Entrepreneurship research</strong> based on currently operating companies ignores the
-majority of start-ups that failed, producing over-optimistic conclusions about
-what makes businesses succeed.</p></li>
-<li><p><strong>Investment strategies</strong> derived from funds that still exist today, ignoring
-the many funds that closed after poor performance: a well-known problem in
-backtesting.</p></li>
-<li><p><strong>Historical salary benchmarks</strong> built from employees who stayed at a company,
-excluding those who left for better pay elsewhere and therefore underestimating
-the competitive market rate.</p></li>
+<li><p><strong>Gründungsforschung</strong>, die sich auf aktuell tätige Unternehmen stützt,
+ignoriert die Mehrheit der gescheiterten Start-ups und führt zu übertrieben
+optimistischen Schlüssen darüber, was Unternehmen erfolgreich macht.</p></li>
+<li><p><strong>Anlagestrategien</strong>, die aus heute noch existierenden Fonds abgeleitet werden
+und die vielen Fonds ignorieren, die nach schlechter Performance geschlossen
+wurden — ein bekanntes Problem beim Backtesting.</p></li>
+<li><p><strong>Historische Gehaltsvergleiche</strong>, die auf Beschäftigten beruhen, die im
+Unternehmen geblieben sind, und jene ausschließen, die für besseres Gehalt
+woanders hingewechselt sind, wodurch die tatsächliche Marktrate unterschätzt
+wird.</p></li>
 </ul>
 </section>
 <section id="p-hacking">
-<h3>P-hacking<a class="headerlink" href="#p-hacking" title="Link to this heading">#</a></h3>
-<p>In the third chapter, running t-tests on 20 completely random yes/no features
-produced one or two “significant” results by chance alone. If only those were
-reported, the literature would contain a false claim about wages.</p>
-<p>Real-world examples:</p>
+<h3>P-Hacking<a class="headerlink" href="#p-hacking" title="Link to this heading">#</a></h3>
+<p>Im dritten Kapitel führten t-Tests auf 20 vollkommen zufälligen Ja/Nein-Merkmalen
+allein durch Zufall zu ein oder zwei “signifikanten” Ergebnissen. Würden nur
+diese berichtet, enthielte die Literatur eine falsche Aussage über Löhne.</p>
+<p>Beispiele aus der Praxis:</p>
 <ul class="simple">
-<li><p><strong>Drug trials</strong> that test many dosages, sub-populations, or endpoints and report
-only the ones that crossed the significance threshold, contributing to a
-replication crisis in medicine and psychology.</p></li>
-<li><p><strong>Economic policy analyses</strong> where researchers test many model specifications
-(different control variables, sample restrictions, time windows) and report the
-specification that best supports a preferred conclusion.</p></li>
-<li><p><strong>A/B testing</strong> in product development, where running many simultaneous tests
-and acting on whichever one first reaches <em>p</em> &lt; 0.05 inflates the false-positive
-rate far above the nominal 5%.</p></li>
+<li><p><strong>Medikamentenstudien</strong>, die viele Dosierungen, Subpopulationen oder Endpunkte
+testen und nur diejenigen berichten, die die Signifikanzschwelle überschritten
+haben, was zu einer Replikationskrise in Medizin und Psychologie beiträgt.</p></li>
+<li><p><strong>Wirtschaftspolitische Analysen</strong>, bei denen Forschende viele
+Modellspezifikationen testen (unterschiedliche Kontrollvariablen,
+Stichprobeneinschränkungen, Zeitfenster) und die Spezifikation berichten, die
+eine bevorzugte Schlussfolgerung am besten unterstützt.</p></li>
+<li><p><strong>A/B-Tests</strong> in der Produktentwicklung, bei denen viele gleichzeitige Tests
+laufen und man auf den ersten reagiert, der <em>p</em> &lt; 0,05 erreicht, was die
+Falsch-Positiv-Rate weit über die nominellen 5 % hinaus erhöht.</p></li>
 </ul>
 </section>
 </section>
 <hr class="docutils" />
-<section id="how-to-detect-and-mitigate-each-bias">
-<h2>How to Detect and Mitigate Each Bias<a class="headerlink" href="#how-to-detect-and-mitigate-each-bias" title="Link to this heading">#</a></h2>
-<section id="detection">
-<h3>Detection<a class="headerlink" href="#detection" title="Link to this heading">#</a></h3>
+<section id="wie-man-jede-verzerrung-erkennt-und-abmildert">
+<h2>Wie man jede Verzerrung erkennt und abmildert<a class="headerlink" href="#wie-man-jede-verzerrung-erkennt-und-abmildert" title="Link to this heading">#</a></h2>
+<section id="erkennung">
+<h3>Erkennung<a class="headerlink" href="#erkennung" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p>Bias</p></th>
-<th class="head"><p>Key diagnostic</p></th>
+<tr class="row-odd"><th class="head"><p>Verzerrung</p></th>
+<th class="head"><p>Wichtige Diagnose</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><strong>Omitted variable</strong></p></td>
-<td><p>Check whether residuals are systematic across a group you did <em>not</em> include as a feature</p></td>
+<tr class="row-even"><td><p><strong>Ausgelassene Variable</strong></p></td>
+<td><p>Prüfe, ob die Residuen über eine Gruppe hinweg systematisch sind, die <em>nicht</em> als Variable einbezogen wurde</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>Sampling</strong></p></td>
-<td><p>Compare the distribution of key variables in training data against the target population; evaluate RMSE or accuracy by subgroup</p></td>
+<tr class="row-odd"><td><p><strong>Stichprobe</strong></p></td>
+<td><p>Vergleiche die Verteilung wichtiger Variablen in den Trainingsdaten mit der Zielpopulation; bewerte RMSE oder Genauigkeit nach Untergruppe</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Survivorship</strong></p></td>
-<td><p>Ask: <em>who is not in this dataset, and why?</em> Look for implausibly low failure or dropout rates</p></td>
+<td><p>Frage: <em>Wer ist nicht in diesem Datensatz, und warum?</em> Achte auf unplausibel niedrige Fehlschlags- oder Abbruchraten</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>P-hacking</strong></p></td>
-<td><p>Check whether all tests and all model specifications were reported; plot the full distribution of p-values. It should be roughly uniform under the null</p></td>
+<tr class="row-odd"><td><p><strong>P-Hacking</strong></p></td>
+<td><p>Prüfe, ob alle Tests und Modellspezifikationen berichtet wurden; stelle die vollständige Verteilung der p-Werte dar. Sie sollte unter der Nullhypothese annähernd gleichverteilt sein</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </section>
-<section id="mitigation">
-<h3>Mitigation<a class="headerlink" href="#mitigation" title="Link to this heading">#</a></h3>
+<section id="abmilderung">
+<h3>Abmilderung<a class="headerlink" href="#abmilderung" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p>Bias</p></th>
-<th class="head"><p>Practical remedy</p></th>
+<tr class="row-odd"><th class="head"><p>Verzerrung</p></th>
+<th class="head"><p>Praktische Abhilfe</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><strong>Omitted variable</strong></p></td>
-<td><p>Include all theoretically relevant variables; use residual plots to check for remaining group-level patterns</p></td>
+<tr class="row-even"><td><p><strong>Ausgelassene Variable</strong></p></td>
+<td><p>Alle theoretisch relevanten Variablen einbeziehen; Residuenplots nutzen, um verbleibende Muster auf Gruppenebene zu prüfen</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>Sampling</strong></p></td>
-<td><p>Collect representative data; if impossible, document the gap and evaluate models on held-out data from underrepresented groups</p></td>
+<tr class="row-odd"><td><p><strong>Stichprobe</strong></p></td>
+<td><p>Repräsentative Daten erheben; falls unmöglich, die Lücke dokumentieren und Modelle an zurückgehaltenen Daten unterrepräsentierter Gruppen bewerten</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Survivorship</strong></p></td>
-<td><p>Seek out data on non-survivors (closed funds, failed firms, drop-outs); weight or flag surviving cases explicitly</p></td>
+<td><p>Daten zu Nicht-Überlebenden suchen (geschlossene Fonds, gescheiterte Firmen, Abbrecher); überlebende Fälle explizit gewichten oder kennzeichnen</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>P-hacking</strong></p></td>
-<td><p>Pre-register hypotheses before collecting data; apply corrections for multiple comparisons (e.g. Bonferroni); report all tests, not just significant ones</p></td>
+<tr class="row-odd"><td><p><strong>P-Hacking</strong></p></td>
+<td><p>Hypothesen vor der Datenerhebung vorab registrieren; Korrekturen für multiples Testen anwenden (z. B. Bonferroni); alle Tests berichten, nicht nur die signifikanten</p></td>
 </tr>
 </tbody>
 </table>
@@ -694,34 +709,39 @@ rate far above the nominal 5%.</p></li>
 </section>
 </section>
 <hr class="docutils" />
-<section id="ethical-considerations">
-<h2>Ethical Considerations<a class="headerlink" href="#ethical-considerations" title="Link to this heading">#</a></h2>
-<p>The biases discussed in this tutorial are not abstract statistical curiosities.
-They affect real people. A wage model that omits sex may be used to set pay.
-A credit model trained on unrepresentative data may deny loans to qualified
-applicants. A published p-hacked study may inform policy.</p>
-<p>A few principles to keep in mind:</p>
+<section id="ethische-uberlegungen">
+<h2>Ethische Überlegungen<a class="headerlink" href="#ethische-uberlegungen" title="Link to this heading">#</a></h2>
+<p>Die in diesem Tutorial besprochenen Verzerrungen sind keine abstrakten
+statistischen Kuriositäten. Sie betreffen reale Menschen. Ein Lohnmodell, das das
+Geschlecht auslässt, kann zur Gehaltsfestlegung verwendet werden. Ein
+Kreditmodell, das mit nicht repräsentativen Daten trainiert wurde, kann
+qualifizierten Antragstellerinnen und Antragstellern Kredite verweigern. Eine
+veröffentlichte, p-gehackte Studie kann in die Politikgestaltung einfließen.</p>
+<p>Ein paar Prinzipien, die man im Hinterkopf behalten sollte:</p>
 <ul class="simple">
-<li><p><strong>Transparency</strong>: Clearly document what variables the model uses, what data it
-was trained on, and what groups are underrepresented. Users of a model cannot
-correct for biases they do not know about.</p></li>
-<li><p><strong>Accountability</strong>: Establish who is responsible for monitoring model performance
-over time. Bias can emerge or shift as the world changes, even if the model
-itself does not.</p></li>
-<li><p><strong>Evaluate by group, not just overall</strong>: Overall accuracy or RMSE can look
-acceptable while hiding severe disparities for specific subgroups. Always break
-down performance metrics by the groups your model will affect.</p></li>
-<li><p><strong>Report all analyses</strong>: Whether in academia or industry, reporting only the
-analysis that gives the most attractive result is a form of p-hacking. A
-transparent workflow documents what was tried and what was found, including
-null results.</p></li>
+<li><p><strong>Transparenz</strong>: Dokumentiere klar, welche Variablen das Modell verwendet, mit
+welchen Daten es trainiert wurde und welche Gruppen unterrepräsentiert sind.
+Nutzerinnen und Nutzer eines Modells können Verzerrungen nicht korrigieren, von
+denen sie nichts wissen.</p></li>
+<li><p><strong>Verantwortlichkeit</strong>: Lege fest, wer dafür verantwortlich ist, die
+Modellleistung über die Zeit zu überwachen. Verzerrungen können entstehen oder
+sich verschieben, wenn sich die Welt verändert, selbst wenn das Modell selbst
+gleich bleibt.</p></li>
+<li><p><strong>Nach Gruppe bewerten, nicht nur insgesamt</strong>: Die Gesamtgenauigkeit oder der
+Gesamt-RMSE können akzeptabel aussehen, während sie schwere Ungleichheiten für
+bestimmte Untergruppen verschleiern. Schlüssle Leistungsmetriken immer nach den
+Gruppen auf, die dein Modell betreffen wird.</p></li>
+<li><p><strong>Alle Analysen berichten</strong>: Ob in der Wissenschaft oder in der Industrie — nur
+die Analyse zu berichten, die das attraktivste Ergebnis liefert, ist eine Form
+von P-Hacking. Ein transparenter Arbeitsablauf dokumentiert, was versucht und
+was gefunden wurde, einschließlich Nullresultaten.</p></li>
 </ul>
 </section>
 <hr class="docutils" />
-<section id="exercises">
-<h2>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
-<section id="exercise-1-omitted-variable-bias">
-<h3>Exercise 1: Omitted Variable Bias<a class="headerlink" href="#exercise-1-omitted-variable-bias" title="Link to this heading">#</a></h3>
+<section id="ubungen">
+<h2>Übungen<a class="headerlink" href="#ubungen" title="Link to this heading">#</a></h2>
+<section id="ubung-1-verzerrung-durch-ausgelassene-variablen">
+<h3>Übung 1: Verzerrung durch ausgelassene Variablen<a class="headerlink" href="#ubung-1-verzerrung-durch-ausgelassene-variablen" title="Link to this heading">#</a></h3>
 <style>
   .quiz-container {
     background: #fff;
@@ -770,13 +790,13 @@ null results.</p></li>
 </style>
 
 <div class="quiz-container" id="quiz1">
-  <p class="question">In Chapter 1 we built a wage model that omitted the variable <em>sex</em>. What was the main consequence?</p>
+  <p class="question">In Kapitel 1 haben wir ein Lohnmodell erstellt, das die Variable <em>Geschlecht</em> ausgelassen hat. Was war die Hauptfolge?</p>
   <form id="quiz1-form">
-    <label><input type="radio" name="q1" value="a"> The model's overall RMSE became zero</label>
-    <label><input type="radio" name="q1" value="b"> The model systematically over-predicted wages for women and under-predicted for men</label>
-    <label><input type="radio" name="q1" value="c"> The model refused to make any predictions</label>
-    <label><input type="radio" name="q1" value="d"> The model became more accurate because it had fewer inputs to handle</label>
-    <button type="button" onclick="checkQ1()">Submit Answer</button>
+    <label><input type="radio" name="q1" value="a"> Der Gesamt-RMSE des Modells wurde null</label>
+    <label><input type="radio" name="q1" value="b"> Das Modell überschätzte systematisch die Löhne von Frauen und unterschätzte die von Männern</label>
+    <label><input type="radio" name="q1" value="c"> Das Modell verweigerte jede Vorhersage</label>
+    <label><input type="radio" name="q1" value="d"> Das Modell wurde genauer, weil es weniger Eingaben verarbeiten musste</label>
+    <button type="button" onclick="checkQ1()">Antwort abschicken</button>
     <p id="quiz1-feedback" class="quiz-feedback" style="display:none;"></p>
   </form>
 </div>
@@ -784,16 +804,16 @@ null results.</p></li>
 <script>
 function checkQ1() {
   const answers = {
-    a: { correct: false, feedback: "Incorrect. Omitting a variable increases error, it does not eliminate it." },
-    b: { correct: true,  feedback: "Correct! Without sex in the model, it applied a single average formula to everyone. Because men earn more on average in the data, the model over-predicted for women and under-predicted for men by about $5/hr in each direction." },
-    c: { correct: false, feedback: "Incorrect. The model still ran, but its predictions were systematically biased for each group." },
-    d: { correct: false, feedback: "Incorrect. Removing a relevant variable increases bias. It does not help." }
+    a: { correct: false, feedback: "Falsch. Das Auslassen einer Variable erhöht den Fehler, es beseitigt ihn nicht." },
+    b: { correct: true,  feedback: "Richtig! Ohne das Geschlecht im Modell wendete es auf alle eine einzige Durchschnittsformel an. Da Männer in den Daten im Schnitt mehr verdienen, überschätzte das Modell die Löhne von Frauen und unterschätzte die von Männern um jeweils etwa 5 $/Std." },
+    c: { correct: false, feedback: "Falsch. Das Modell lief weiterhin, aber seine Vorhersagen waren für jede Gruppe systematisch verzerrt." },
+    d: { correct: false, feedback: "Falsch. Das Entfernen einer relevanten Variable erhöht die Verzerrung. Es hilft nicht." }
   };
   const selected = document.querySelector('input[name="q1"]:checked');
   const feedback = document.getElementById("quiz1-feedback");
   feedback.style.display = "block";
   if (!selected) {
-    feedback.textContent = "Please select an answer.";
+    feedback.textContent = "Bitte wähle eine Antwort aus.";
     feedback.className = "quiz-feedback warning";
     return;
   }
@@ -802,16 +822,16 @@ function checkQ1() {
   feedback.className = "quiz-feedback " + (result.correct ? "success" : "error");
 }
 </script></section>
-<section id="exercise-2-sampling-bias">
-<h3>Exercise 2: Sampling Bias<a class="headerlink" href="#exercise-2-sampling-bias" title="Link to this heading">#</a></h3>
+<section id="ubung-2-stichprobenverzerrung">
+<h3>Übung 2: Stichprobenverzerrung<a class="headerlink" href="#ubung-2-stichprobenverzerrung" title="Link to this heading">#</a></h3>
 <div class="quiz-container" id="quiz2">
-  <p class="question">In Chapter 2 the biased model was trained only on young workers. Why did it perform so badly for older workers at test time?</p>
+  <p class="question">In Kapitel 2 wurde das verzerrte Modell nur mit jungen Arbeitnehmern trainiert. Warum schnitt es bei älteren Arbeitnehmern zur Testzeit so schlecht ab?</p>
   <form id="quiz2-form">
-    <label><input type="radio" name="q2" value="a"> The model had too many parameters and overfit to the young workers</label>
-    <label><input type="radio" name="q2" value="b"> The decision tree had never seen high-experience workers during training, so it could not predict their wages</label>
-    <label><input type="radio" name="q2" value="c"> Older workers' wages are simply impossible to predict from the available features</label>
-    <label><input type="radio" name="q2" value="d"> The test set contained too few older workers to evaluate properly</label>
-    <button type="button" onclick="checkQ2()">Submit Answer</button>
+    <label><input type="radio" name="q2" value="a"> Das Modell hatte zu viele Parameter und überfittete auf die jungen Arbeitnehmer</label>
+    <label><input type="radio" name="q2" value="b"> Der Entscheidungsbaum hatte während des Trainings nie Arbeitnehmer mit viel Erfahrung gesehen und konnte deshalb ihre Löhne nicht vorhersagen</label>
+    <label><input type="radio" name="q2" value="c"> Die Löhne älterer Arbeitnehmer lassen sich aus den verfügbaren Variablen schlicht nicht vorhersagen</label>
+    <label><input type="radio" name="q2" value="d"> Die Testmenge enthielt zu wenige ältere Arbeitnehmer für eine ordentliche Bewertung</label>
+    <button type="button" onclick="checkQ2()">Antwort abschicken</button>
     <p id="quiz2-feedback" class="quiz-feedback" style="display:none;"></p>
   </form>
 </div>
@@ -819,16 +839,16 @@ function checkQ1() {
 <script>
 function checkQ2() {
   const answers = {
-    a: { correct: false, feedback: "Incorrect. Overfitting means the model fits training noise too closely. That is a separate problem from sampling bias." },
-    b: { correct: true,  feedback: "Correct! A decision tree only learns rules from the data it has seen. Because no middle-aged or older worker appeared in the biased training set, the model's leaves only captured wage levels typical of young workers ($10–16/hr). Any test worker with 20+ years of experience ended up in those leaves and received a young-worker prediction far below the actual wage." },
-    c: { correct: false, feedback: "Incorrect. The balanced model predicted older workers' wages accurately. The problem was the training data, not the task." },
-    d: { correct: false, feedback: "Incorrect. The test set was the same for both models; the difference came entirely from the training data." }
+    a: { correct: false, feedback: "Falsch. Overfitting bedeutet, dass sich das Modell zu eng an das Rauschen der Trainingsdaten anpasst. Das ist ein anderes Problem als die Stichprobenverzerrung." },
+    b: { correct: true,  feedback: "Richtig! Ein Entscheidungsbaum lernt Regeln nur aus den Daten, die er gesehen hat. Da in der verzerrten Trainingsmenge keine mittelalten oder älteren Arbeitnehmer vorkamen, erfassten die Blätter des Modells nur Lohnniveaus, wie sie für junge Arbeitnehmer typisch sind (10–16 $/Std.). Jede Testperson mit 20+ Jahren Erfahrung landete in diesen Blättern und erhielt eine Vorhersage wie für junge Arbeitnehmer, weit unter dem tatsächlichen Lohn." },
+    c: { correct: false, feedback: "Falsch. Das ausgewogene Modell sagte die Löhne älterer Arbeitnehmer genau vorher. Das Problem lag in den Trainingsdaten, nicht in der Aufgabe." },
+    d: { correct: false, feedback: "Falsch. Die Testmenge war für beide Modelle identisch; der Unterschied kam ausschließlich aus den Trainingsdaten." }
   };
   const selected = document.querySelector('input[name="q2"]:checked');
   const feedback = document.getElementById("quiz2-feedback");
   feedback.style.display = "block";
   if (!selected) {
-    feedback.textContent = "Please select an answer.";
+    feedback.textContent = "Bitte wähle eine Antwort aus.";
     feedback.className = "quiz-feedback warning";
     return;
   }
@@ -837,16 +857,16 @@ function checkQ2() {
   feedback.className = "quiz-feedback " + (result.correct ? "success" : "error");
 }
 </script></section>
-<section id="exercise-3-survivorship-bias">
-<h3>Exercise 3: Survivorship Bias<a class="headerlink" href="#exercise-3-survivorship-bias" title="Link to this heading">#</a></h3>
+<section id="ubung-3-survivorship-bias">
+<h3>Übung 3: Survivorship Bias<a class="headerlink" href="#ubung-3-survivorship-bias" title="Link to this heading">#</a></h3>
 <div class="quiz-container" id="quiz3">
-  <p class="question">In Chapter 3, the company archive was missing short-tenure workers with below-median wages. What best describes the effect on a model trained on this archive?</p>
+  <p class="question">In Kapitel 3 fehlten im Unternehmensarchiv Arbeitnehmer mit kurzer Betriebszugehörigkeit und unterdurchschnittlichem Lohn. Was beschreibt die Auswirkung auf ein mit diesem Archiv trainiertes Modell am besten?</p>
   <form id="quiz3-form">
-    <label><input type="radio" name="q3" value="a"> The model became fairer because low-earners were excluded</label>
-    <label><input type="radio" name="q3" value="b"> The model performed well on long-tenure workers but poorly on short-tenure workers, whose wage patterns it had rarely seen</label>
-    <label><input type="radio" name="q3" value="c"> The model overestimated wages for long-tenure workers</label>
-    <label><input type="radio" name="q3" value="d"> There was no effect because tenure was included as a feature</label>
-    <button type="button" onclick="checkQ3()">Submit Answer</button>
+    <label><input type="radio" name="q3" value="a"> Das Modell wurde fairer, weil Geringverdiener ausgeschlossen wurden</label>
+    <label><input type="radio" name="q3" value="b"> Das Modell schnitt bei Arbeitnehmern mit langer Zugehörigkeit gut ab, aber schlecht bei solchen mit kurzer Zugehörigkeit, deren Lohnmuster es kaum gesehen hatte</label>
+    <label><input type="radio" name="q3" value="c"> Das Modell überschätzte die Löhne von Arbeitnehmern mit langer Zugehörigkeit</label>
+    <label><input type="radio" name="q3" value="d"> Es gab keine Auswirkung, weil die Betriebszugehörigkeit als Variable einbezogen wurde</label>
+    <button type="button" onclick="checkQ3()">Antwort abschicken</button>
     <p id="quiz3-feedback" class="quiz-feedback" style="display:none;"></p>
   </form>
 </div>
@@ -854,16 +874,16 @@ function checkQ2() {
 <script>
 function checkQ3() {
   const answers = {
-    a: { correct: false, feedback: "Incorrect. Excluding low earners does not make the model fairer. It makes it blind to an important part of the population." },
-    b: { correct: true,  feedback: "Correct! The archive contained mostly workers who had stayed because they earned well. Short-tenure, low-wage workers had largely left and were invisible to the model. When the model was tested on the true population (including those who would have left), its errors for the short-tenure group were much larger than for the long-tenure group." },
-    c: { correct: false, feedback: "Incorrect. The model had plenty of data on long-tenure workers, so its predictions for them were relatively accurate." },
-    d: { correct: false, feedback: "Incorrect. Including tenure as a feature does not compensate for the fact that most short-tenure, low-wage workers simply did not appear in the training data." }
+    a: { correct: false, feedback: "Falsch. Geringverdiener auszuschließen macht das Modell nicht fairer. Es macht es blind für einen wichtigen Teil der Population." },
+    b: { correct: true,  feedback: "Richtig! Das Archiv enthielt vor allem Arbeitnehmer, die geblieben waren, weil sie gut verdienten. Arbeitnehmer mit kurzer Zugehörigkeit und niedrigem Lohn hatten das Unternehmen größtenteils verlassen und waren für das Modell unsichtbar. Als das Modell an der wahren Population getestet wurde (einschließlich jener, die gegangen wären), waren seine Fehler für die Gruppe mit kurzer Zugehörigkeit viel größer als für die mit langer Zugehörigkeit." },
+    c: { correct: false, feedback: "Falsch. Das Modell hatte reichlich Daten zu Arbeitnehmern mit langer Zugehörigkeit, daher waren seine Vorhersagen für sie relativ genau." },
+    d: { correct: false, feedback: "Falsch. Die Betriebszugehörigkeit als Variable einzubeziehen, gleicht nicht aus, dass die meisten Arbeitnehmer mit kurzer Zugehörigkeit und niedrigem Lohn schlicht nicht in den Trainingsdaten vorkamen." }
   };
   const selected = document.querySelector('input[name="q3"]:checked');
   const feedback = document.getElementById("quiz3-feedback");
   feedback.style.display = "block";
   if (!selected) {
-    feedback.textContent = "Please select an answer.";
+    feedback.textContent = "Bitte wähle eine Antwort aus.";
     feedback.className = "quiz-feedback warning";
     return;
   }
@@ -872,16 +892,16 @@ function checkQ3() {
   feedback.className = "quiz-feedback " + (result.correct ? "success" : "error");
 }
 </script></section>
-<section id="exercise-4-p-hacking">
-<h3>Exercise 4: P-hacking<a class="headerlink" href="#exercise-4-p-hacking" title="Link to this heading">#</a></h3>
+<section id="ubung-4-p-hacking">
+<h3>Übung 4: P-Hacking<a class="headerlink" href="#ubung-4-p-hacking" title="Link to this heading">#</a></h3>
 <div class="quiz-container" id="quiz4">
-  <p class="question">In Chapter 3, we tested 20 completely random yes/no features for a wage effect and found one or two "significant" results (p &lt; 0.05). What is the correct interpretation?</p>
+  <p class="question">In Kapitel 3 haben wir 20 vollkommen zufällige Ja/Nein-Merkmale auf einen Lohneffekt getestet und ein oder zwei "signifikante" Ergebnisse (p &lt; 0,05) gefunden. Was ist die richtige Interpretation?</p>
   <form id="quiz4-form">
-    <label><input type="radio" name="q4" value="a"> The significant features genuinely affect wages and should be reported</label>
-    <label><input type="radio" name="q4" value="b"> The result confirms that some personal traits do influence earnings</label>
-    <label><input type="radio" name="q4" value="c"> With 20 independent tests at a 5% threshold, roughly one false positive is expected by chance.</label>
-    <label><input type="radio" name="q4" value="d"> The p-value threshold should have been set at 1% instead of 5%</label>
-    <button type="button" onclick="checkQ4()">Submit Answer</button>
+    <label><input type="radio" name="q4" value="a"> Die signifikanten Merkmale beeinflussen tatsächlich den Lohn und sollten berichtet werden</label>
+    <label><input type="radio" name="q4" value="b"> Das Ergebnis bestätigt, dass bestimmte persönliche Eigenschaften das Einkommen tatsächlich beeinflussen</label>
+    <label><input type="radio" name="q4" value="c"> Bei 20 unabhängigen Tests mit einer Schwelle von 5 % ist rein durch Zufall etwa ein falsch positives Ergebnis zu erwarten</label>
+    <label><input type="radio" name="q4" value="d"> Die p-Wert-Schwelle hätte bei 1 % statt bei 5 % liegen sollen</label>
+    <button type="button" onclick="checkQ4()">Antwort abschicken</button>
     <p id="quiz4-feedback" class="quiz-feedback" style="display:none;"></p>
   </form>
 </div>
@@ -889,16 +909,16 @@ function checkQ3() {
 <script>
 function checkQ4() {
   const answers = {
-    a: { correct: false, feedback: "Incorrect. The features were generated randomly and have no real relationship to wages. A significant p-value only means the result is unlikely under the null hypothesis. It does not prove a real effect, especially when many tests were run." },
-    b: { correct: false, feedback: "Incorrect. The features (e.g. 'owns a pet', 'prefers mountains') were assigned randomly and cannot reflect genuine wage effects." },
-    c: { correct: true,  feedback: "Correct! With 20 tests and a 5% threshold, we expect 20 × 0.05 = 1 false positive even when nothing is truly significant. Reporting only the 'significant' result, without mentioning the other 19 tests, is p-hacking. The standard remedy is to report all tests and, when running many comparisons, apply a correction such as the Bonferroni adjustment." },
-    d: { correct: false, feedback: "Partially right that a stricter threshold reduces false positives, but that alone does not solve the problem of running many tests and reporting only the significant ones. The core issue is transparency about all tests performed." }
+    a: { correct: false, feedback: "Falsch. Die Merkmale wurden zufällig erzeugt und haben keinen echten Zusammenhang mit dem Lohn. Ein signifikanter p-Wert bedeutet nur, dass das Ergebnis unter der Nullhypothese unwahrscheinlich ist. Er beweist keinen echten Effekt, besonders wenn viele Tests durchgeführt wurden." },
+    b: { correct: false, feedback: "Falsch. Die Merkmale (z. B. 'besitzt ein Haustier', 'bevorzugt Berge') wurden zufällig zugewiesen und können keine echten Lohneffekte widerspiegeln." },
+    c: { correct: true,  feedback: "Richtig! Bei 20 Tests und einer Schwelle von 5 % erwarten wir 20 × 0,05 = 1 falsch positives Ergebnis, selbst wenn nichts wirklich signifikant ist. Nur das 'signifikante' Ergebnis zu berichten, ohne die anderen 19 Tests zu erwähnen, ist P-Hacking. Die übliche Abhilfe ist, alle Tests zu berichten und bei vielen Vergleichen eine Korrektur wie die Bonferroni-Anpassung anzuwenden." },
+    d: { correct: false, feedback: "Teilweise richtig, dass eine strengere Schwelle falsch positive Ergebnisse reduziert, aber das allein löst nicht das Problem, viele Tests durchzuführen und nur die signifikanten zu berichten. Der Kernpunkt ist Transparenz über alle durchgeführten Tests." }
   };
   const selected = document.querySelector('input[name="q4"]:checked');
   const feedback = document.getElementById("quiz4-feedback");
   feedback.style.display = "block";
   if (!selected) {
-    feedback.textContent = "Please select an answer.";
+    feedback.textContent = "Bitte wähle eine Antwort aus.";
     feedback.className = "quiz-feedback warning";
     return;
   }
@@ -909,46 +929,51 @@ function checkQ4() {
 </script></section>
 </section>
 <hr class="docutils" />
-<section id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
-<p>Across the three preceding chapters, we encountered four distinct ways a model can
-produce systematically wrong results:</p>
+<section id="zusammenfassung">
+<h2>Zusammenfassung<a class="headerlink" href="#zusammenfassung" title="Link to this heading">#</a></h2>
+<p>In den drei vorangegangenen Kapiteln sind wir vier verschiedenen Wegen begegnet,
+auf denen ein Modell systematisch falsche Ergebnisse liefern kann:</p>
 <ol class="arabic simple">
-<li><p><strong>Omitted variable bias</strong> arises when a variable that genuinely affects the
-outcome is left out of the model. The model cannot account for group differences
-it cannot see, and its errors become patterned rather than random.</p></li>
-<li><p><strong>Sampling bias</strong> arises when the training data does not reflect the population
-the model will be applied to. Groups that appear rarely in training will be
-predicted poorly and the overall accuracy score may hide this entirely.</p></li>
-<li><p><strong>Survivorship bias</strong> is a special case of sampling bias: only the “survivors”
-of some selection process appear in the data. The model learns about successful
-or stable cases and cannot generalise to those that did not survive.</p></li>
-<li><p><strong>P-hacking</strong> is not a bias in the data but in the analysis: running many tests
-and reporting only the significant ones inflates the false-positive rate, leading
-to findings that do not replicate.</p></li>
+<li><p><strong>Verzerrung durch ausgelassene Variablen</strong> entsteht, wenn eine Variable, die
+das Ergebnis tatsächlich beeinflusst, im Modell fehlt. Das Modell kann
+Gruppenunterschiede, die es nicht sehen kann, nicht berücksichtigen, und seine
+Fehler werden systematisch statt zufällig.</p></li>
+<li><p><strong>Stichprobenverzerrung</strong> entsteht, wenn die Trainingsdaten nicht die
+Population widerspiegeln, auf die das Modell angewendet wird. Gruppen, die im
+Training selten vorkommen, werden schlecht vorhergesagt, und die
+Gesamtgenauigkeit kann das vollständig verschleiern.</p></li>
+<li><p><strong>Survivorship Bias</strong> ist ein Spezialfall der Stichprobenverzerrung: Nur die
+“Überlebenden” eines Auswahlprozesses erscheinen in den Daten. Das Modell
+lernt etwas über erfolgreiche oder stabile Fälle und kann nicht auf jene
+verallgemeinern, die nicht überlebt haben.</p></li>
+<li><p><strong>P-Hacking</strong> ist keine Verzerrung in den Daten, sondern in der Analyse: Viele
+Tests durchzuführen und nur die signifikanten zu berichten, erhöht die
+Falsch-Positiv-Rate und führt zu Befunden, die sich nicht replizieren lassen.</p></li>
 </ol>
-<p>The common thread is that <strong>what is absent from the data or the report matters as
-much as what is present</strong>. Asking “who or what is missing here, and why?” is one
-of the most powerful questions a researcher or practitioner can ask before trusting
-a model’s output.</p>
+<p>Der gemeinsame Faden ist, dass <strong>das, was in den Daten oder im Bericht fehlt,
+genauso wichtig ist wie das, was vorhanden ist</strong>. Die Frage “Wer oder was fehlt
+hier, und warum?” zu stellen, ist eine der mächtigsten Fragen, die sich eine
+Forschungsperson oder Praktikerin oder Praktiker stellen kann, bevor sie der
+Ausgabe eines Modells vertraut.</p>
 </section>
 </section>
 
         <script type="text/x-thebe-config">
         {
-            "rootPath": "./",
-            "requestKernel": true,
-            "useJupyterLite": true,
-            "useBinder": false,
-            "kernelOptions": {
-                "path": "/"
+            requestKernel: true,
+            binderOptions: {
+                repo: "K-RLange/dh_statistical_biases",
+                ref: "master",
             },
-            "codeMirrorConfig": {
-                "theme": "default",
-                "mode": "python"
+            codeMirrorConfig: {
+                theme: "default",
+                mode: "python"
             },
-            "mountRestartButton": false,
-            "mountRestartallButton": false
+            kernelOptions: {
+                name: "python3",
+                path: "en/."
+            },
+            predefinedOutput: true
         }
         </script>
         <script>kernelName = 'python3'</script>
@@ -969,7 +994,7 @@ a model’s output.</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">3. More Biases: Survivorship and P-hacking</p>
+        <p class="prev-next-title">3. Weitere Verzerrungen: Survivorship Bias und P-Hacking</p>
       </div>
     </a>
 </div>
@@ -988,28 +1013,28 @@ a model’s output.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-have-seen-a-recap">What We Have Seen: A Recap</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#real-world-implications">Real-World Implications</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#omitted-variable-bias">Omitted Variable Bias</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-bias">Sampling Bias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#was-wir-gesehen-haben-eine-zusammenfassung">Was wir gesehen haben: Eine Zusammenfassung</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#auswirkungen-in-der-praxis">Auswirkungen in der Praxis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verzerrung-durch-ausgelassene-variablen">Verzerrung durch ausgelassene Variablen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stichprobenverzerrung">Stichprobenverzerrung</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#survivorship-bias">Survivorship Bias</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p-hacking">P-hacking</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p-hacking">P-Hacking</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-detect-and-mitigate-each-bias">How to Detect and Mitigate Each Bias</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#detection">Detection</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mitigation">Mitigation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wie-man-jede-verzerrung-erkennt-und-abmildert">Wie man jede Verzerrung erkennt und abmildert</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#erkennung">Erkennung</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#abmilderung">Abmilderung</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ethical-considerations">Ethical Considerations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-omitted-variable-bias">Exercise 1: Omitted Variable Bias</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-sampling-bias">Exercise 2: Sampling Bias</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-survivorship-bias">Exercise 3: Survivorship Bias</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-p-hacking">Exercise 4: P-hacking</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ethische-uberlegungen">Ethische Überlegungen</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ubungen">Übungen</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ubung-1-verzerrung-durch-ausgelassene-variablen">Übung 1: Verzerrung durch ausgelassene Variablen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ubung-2-stichprobenverzerrung">Übung 2: Stichprobenverzerrung</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ubung-3-survivorship-bias">Übung 3: Survivorship Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ubung-4-p-hacking">Übung 4: P-Hacking</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zusammenfassung">Zusammenfassung</a></li>
 </ul>
   </nav></div>
 

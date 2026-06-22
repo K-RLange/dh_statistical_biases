@@ -473,9 +473,9 @@ display(HTML(f"""
   test set. Only group-level evaluation
   reveals how badly it fails for older workers.
 - **The biased model is stuck at young-worker wages**: trained only on workers
-  earning $10–16/hr, the model's predictions are capped near that range. When
+  earning \$10–16/hr, the model's predictions are capped near that range. When
   it encounters a 50-year-old with 25 years of experience, it predicts around
-  $12–14/hr, even though the actual wage is closer to $22/hr.
+  \$12–14/hr, even though the actual wage is closer to \$22/hr.
 - **Older workers are hit hardest**: the further an age group is from the
   training data, the larger the prediction error. The 55+ group, which earns
   the most, suffers the greatest under-prediction.

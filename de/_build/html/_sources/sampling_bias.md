@@ -16,35 +16,36 @@ kernelspec:
   <a href="../en/sampling_bias.html">English</a>
 </div>
 
-# 2. Sampling Bias
+# 2. Stichprobenverzerrung (Sampling Bias)
 
-### What is Sampling Bias?
+### Was ist eine Stichprobenverzerrung?
 
-Imagine you want to study reading habits across an entire city, so you hand out
-surveys at the public library. Almost everyone you meet reads regularly, your
-data looks great! But when you use those results to predict reading habits
-*citywide*, your model will be overconfident, because you only asked people who
-were already at the library. People who never go to libraries were invisible in
-your data.
+Stell dir vor, du willst die Lesegewohnheiten einer ganzen Stadt untersuchen und
+verteilst dazu Fragebögen in der öffentlichen Bibliothek. Fast jeder, den du
+triffst, liest regelmäßig — deine Daten sehen großartig aus! Aber wenn du diese
+Ergebnisse nutzt, um die Lesegewohnheiten *der ganzen Stadt* vorherzusagen, wird
+dein Modell zu optimistisch sein, weil du nur Menschen befragt hast, die bereits
+in der Bibliothek waren. Menschen, die nie in eine Bibliothek gehen, kamen in
+deinen Daten gar nicht vor.
 
-This is **sampling bias**: when the data used to train a model does not
-accurately represent the real-world population the model will later be applied to.
-Some groups appear *more often* than they should (overrepresented), while others
-barely show up (underrepresented). The model learns the patterns of the majority
-group well, but it struggles when it encounters the groups it rarely saw during
-training.
+Das ist eine **Stichprobenverzerrung (Sampling Bias)**: wenn die Daten, mit denen
+ein Modell trainiert wird, nicht genau die reale Population widerspiegeln, auf die
+das Modell später angewendet wird. Manche Gruppen kommen *häufiger* vor, als sie
+sollten (Überrepräsentation), während andere kaum auftauchen (Unterrepräsentation).
+Das Modell lernt die Muster der Mehrheitsgruppe gut, hat aber Schwierigkeiten,
+sobald es auf Gruppen trifft, die es im Training kaum gesehen hat.
 
-In this tutorial, we try to **predict a worker's exact hourly wage** from their
-education, work experience, weekly hours, and tenure. We train one model on a
-representative sample of all age groups, and a second on data that contains
-**only young workers**. Because experience is the main driver of wages and
-young workers have little of it, the biased model never learns what high-experience
-workers look like. When it encounters them at test time, it severely
-under-predicts their wages.
+In diesem Tutorial versuchen wir, den **genauen Stundenlohn** einer Person aus
+Bildung, Berufserfahrung, Wochenstunden und Betriebszugehörigkeit vorherzusagen.
+Wir trainieren ein Modell mit einer repräsentativen Stichprobe aller Altersgruppen
+und ein zweites mit Daten, die **nur junge Arbeitnehmer** enthalten. Da
+Berufserfahrung der Haupttreiber für den Lohn ist und junge Arbeitnehmer wenig
+davon haben, lernt das verzerrte Modell nie, wie Arbeitnehmer mit viel Erfahrung
+aussehen. Trifft es zur Testzeit auf sie, unterschätzt es ihren Lohn drastisch.
 
 ```{code-cell}
 :tags: ["remove_input", "remove_output"]
-# Install packages when running in JupyterLite (Pyodide) via Thebe.
+# Pakete installieren, wenn der Code in JupyterLite (Pyodide) über Thebe läuft.
 try:
     import micropip
     await micropip.install(['scikit-learn', 'ipywidgets', 'matplotlib', 'pandas', 'numpy'])
@@ -68,10 +69,10 @@ warnings.filterwarnings('ignore')
 np.random.seed(42)
 
 def rmse(y_true, y_pred):
-    """Root mean squared error (lower is better)."""
+    """Root Mean Squared Error (niedriger ist besser)."""
     return np.sqrt(mean_squared_error(y_true, y_pred))
 
-# ── Synthetic wage population ──────────────────────────────────────────────
+# ── Synthetische Lohn-Population ───────────────────────────────────────────
 n = 5000
 age            = np.random.normal(41, 17, n).clip(16, 67).round().astype(int)
 education      = np.random.normal(14, 2.5, n).clip(8, 20).round().astype(int)
@@ -82,7 +83,7 @@ tenure         = np.minimum(experience, np.random.exponential(5, n).clip(0, 25))
 
 wage = (
     5.0
-    + 0.10 * age        # experience is the main driver
+    + 0.10 * age        # Erfahrung ist der Haupttreiber
     + 0.20 * tenure
     + 0.15 * education
     + 0.1 * hours_per_week
@@ -99,29 +100,30 @@ df = pd.DataFrame({
 })
 
 def age_group(a):
-    if a < 30:  return 'Under 30'
+    if a < 30:  return 'Unter 30'
     if a <= 54: return '30–54'
-    return '55 and older'
+    return '55 und älter'
 
 df['age_group'] = df['age'].apply(age_group)
-GROUP_ORDER  = ['Under 30', '30–54', '55 and older']
-GROUP_COLORS = {'Under 30': 'mediumpurple', '30–54': 'steelblue', '55 and older': 'darkorange'}
+GROUP_ORDER  = ['Unter 30', '30–54', '55 und älter']
+GROUP_COLORS = {'Unter 30': 'mediumpurple', '30–54': 'steelblue', '55 und älter': 'darkorange'}
 
-# Age is NOT used as a feature. The model only sees education, experience,
-# hours per week, and tenure. It must learn wage patterns from those alone.
+# Das Alter wird NICHT als Variable verwendet. Das Modell sieht nur Bildung,
+# Erfahrung, Wochenstunden und Betriebszugehörigkeit. Es muss die Lohnmuster
+# allein daraus lernen.
 feature_cols = ['education', 'hours_per_week', 'experience', 'tenure']
 
-# Fixed balanced test set: stays constant across all experiments
+# Feste, ausgewogene Testmenge: bleibt über alle Experimente hinweg konstant
 df_full_train, df_test = train_test_split(df, test_size=0.3, random_state=42)
 df_test = df_test.copy()
 
-KEEP_FRACTION = 0.0   # keep 0% of middle-aged and older workers (young workers only)
+KEEP_FRACTION = 0.0   # 0% der mittelalten und älteren Arbeitnehmer behalten (nur junge Arbeitnehmer)
 
 def make_biased_sample(df_tr, keep_fraction):
     """
-    Keep ALL young workers (under 30) but only a random fraction of
-    middle-aged and older workers.
-    keep_fraction=1.0 means no bias; 0.0 means young workers only.
+    Behält ALLE jungen Arbeitnehmer (unter 30), aber nur einen zufälligen
+    Anteil der mittelalten und älteren Arbeitnehmer.
+    keep_fraction=1.0 bedeutet keine Verzerrung; 0.0 bedeutet nur junge Arbeitnehmer.
     """
     young  = df_tr[df_tr['age'] < 30]
     middle = df_tr[(df_tr['age'] >= 30) & (df_tr['age'] <= 54)].sample(frac=keep_fraction, random_state=42)
@@ -131,11 +133,12 @@ def make_biased_sample(df_tr, keep_fraction):
 
 ---
 
-## The True Population
+## Die wahre Population
 
-Before introducing any bias, let's look at the wage distribution across age groups.
-Experience accumulates with age, and since experience is the main driver of wages
-in our model, older workers earn substantially more on average.
+Bevor wir eine Verzerrung einführen, schauen wir uns die Lohnverteilung über die
+Altersgruppen an. Erfahrung sammelt sich mit dem Alter an, und da Erfahrung in
+unserem Modell der Haupttreiber für den Lohn ist, verdienen ältere Arbeitnehmer
+im Schnitt deutlich mehr.
 
 ```{code-cell}
 :tags: ["remove_input"]
@@ -144,46 +147,48 @@ fig, ax = plt.subplots(figsize=(11, 5))
 for group in GROUP_ORDER:
     wages = df.loc[df['age_group'] == group, 'wage']
     ax.hist(wages, bins=35, alpha=0.5, color=GROUP_COLORS[group],
-             label=f'{group}  (mean ${wages.mean():.1f}/hr)', density=True)
+             label=f'{group}  (Mittelwert ${wages.mean():.1f}/Std.)', density=True)
 
-ax.set_xlabel('Hourly Wage ($/hr)')
-ax.set_ylabel('Density')
-ax.set_title('Wage Distributions by Age Group')
+ax.set_xlabel('Stundenlohn ($/Std.)')
+ax.set_ylabel('Dichte')
+ax.set_title('Lohnverteilung nach Altersgruppe')
 ax.legend(fontsize=10)
 plt.tight_layout()
 plt.show()
 
-print("Mean wages in the full population:")
+print("Mittlerer Lohn in der Gesamtpopulation:")
 for g in GROUP_ORDER:
     subset = df[df['age_group'] == g]
-    print(f"  {g:<18}: ${subset['wage'].mean():.1f}/hr  (n={len(subset)})")
+    print(f"  {g:<18}: ${subset['wage'].mean():.1f}/Std.  (n={len(subset)})")
 ```
 
-The three distributions are clearly separated: young workers cluster around \$14/hr,
-middle-aged workers around \$16/hr, and older workers above \$18/hr. A model that
-has only seen young workers will have no idea that wages can reach these levels.
+Die drei Verteilungen sind klar voneinander getrennt: Junge Arbeitnehmer ballen
+sich um \$14/Std., mittelalte um \$16/Std. und ältere oberhalb von \$18/Std. Ein
+Modell, das nur junge Arbeitnehmer gesehen hat, hat keine Ahnung, dass Löhne diese
+Höhen erreichen können.
 
-## Creating a Biased Sample
+## Eine verzerrte Stichprobe erstellen
 
-We now create a biased training set by keeping **all** young workers but
-**none** of the middle-aged and older workers. This simulates a data collection
-scenario such as an online survey that only reached early-career professionals.
+Wir erzeugen nun eine verzerrte Trainingsmenge, indem wir **alle** jungen
+Arbeitnehmer, aber **keine** mittelalten oder älteren Arbeitnehmer behalten. Das
+simuliert ein Datenerhebungsszenario wie etwa eine Online-Umfrage, die nur
+Berufseinsteiger erreicht hat.
 
 ```{code-cell}
 df_biased_train = make_biased_sample(df_full_train, keep_fraction=KEEP_FRACTION)
 
-print("Training set composition before and after sampling bias")
+print("Zusammensetzung der Trainingsmenge vor und nach der Stichprobenverzerrung")
 print("=" * 60)
-print(f"{'Age group':<18} {'Original':>10} {'Biased':>8}  {'% kept':>8}")
+print(f"{'Altersgruppe':<18} {'Original':>10} {'Verzerrt':>8}  {'% behalten':>10}")
 print("-" * 60)
 for g in GROUP_ORDER:
     orig = (df_full_train['age_group'] == g).sum()
     bias = (df_biased_train['age_group'] == g).sum()
     pct  = 100 * bias / orig if orig > 0 else 0
-    print(f"{g:<18} {orig:>10} {bias:>8}  {pct:>7.0f}%")
+    print(f"{g:<18} {orig:>10} {bias:>8}  {pct:>9.0f}%")
 
-print(f"\nMean wage in balanced training: ${df_full_train['wage'].mean():.1f}/hr")
-print(f"Mean wage in biased training:   ${df_biased_train['wage'].mean():.1f}/hr")
+print(f"\nMittlerer Lohn in ausgewogener Trainingsmenge: ${df_full_train['wage'].mean():.1f}/Std.")
+print(f"Mittlerer Lohn in verzerrter Trainingsmenge:    ${df_biased_train['wage'].mean():.1f}/Std.")
 ```
 
 ```{code-cell}
@@ -191,14 +196,14 @@ print(f"Mean wage in biased training:   ${df_biased_train['wage'].mean():.1f}/hr
 fig, axes = plt.subplots(1, 2, figsize=(13, 5))
 
 for ax, df_plot, title in [
-    (axes[0], df_full_train,   'Balanced Training Set'),
-    (axes[1], df_biased_train, f'Biased Training Set\n(only {int(KEEP_FRACTION*100)}% of middle & older workers)'),
+    (axes[0], df_full_train,   'Ausgewogene Trainingsmenge'),
+    (axes[1], df_biased_train, f'Verzerrte Trainingsmenge\n(nur {int(KEEP_FRACTION*100)}% der mittelalten & älteren Arbeitnehmer)'),
 ]:
     counts = {g: (df_plot['age_group'] == g).sum() for g in GROUP_ORDER}
     vals   = [counts[g] for g in GROUP_ORDER]
     colors = [GROUP_COLORS[g] for g in GROUP_ORDER]
     ax.bar(GROUP_ORDER, vals, color=colors, edgecolor='black', alpha=0.8)
-    ax.set_ylabel('Number of workers')
+    ax.set_ylabel('Anzahl Arbeitnehmer')
     ax.set_title(title)
     ax.set_ylim(0, max((df_full_train['age_group'] == g).sum() for g in GROUP_ORDER) * 1.25)
     for i, v in enumerate(vals):
@@ -208,69 +213,72 @@ plt.tight_layout()
 plt.show()
 ```
 
-The biased set contains only young workers. Its mean wage is around \$12/hr.
-The model trained on this data will never learn that wages can reach \$20–30/hr.
+Die verzerrte Menge enthält nur junge Arbeitnehmer. Ihr mittlerer Lohn liegt bei
+etwa \$12/Std. Das auf diesen Daten trainierte Modell wird nie lernen, dass Löhne
+\$20–30/Std. erreichen können.
 
-## Training Two Models
+## Training zweier Modelle
 
-We use a **decision tree regressor**: a model that learns if-then rules to
-predict a numerical outcome. For example: *"Does this worker have more than
-15 years of experience? If yes, predict a higher wage."* Each rule is learned
-purely from the training examples the model has seen. Crucially, a decision tree
-does **not** guess beyond its training range: if it has only ever seen workers
-earning \$10–20/hr, it has no basis for predicting \$25/hr for anyone.
-Other models might be more flexible and able to extrapolate the wages using factors
-like work experience, but they would still struggle to learn the correct patterns
-just from young workers alone.
+Wir verwenden einen **Decision-Tree-Regressor**: ein Modell, das Wenn-Dann-Regeln
+lernt, um eine numerische Zielgröße vorherzusagen. Zum Beispiel: *"Hat dieser
+Arbeitnehmer mehr als 15 Jahre Erfahrung? Falls ja, sage einen höheren Lohn
+voraus."* Jede Regel wird ausschließlich aus den Trainingsbeispielen gelernt, die
+das Modell gesehen hat. Entscheidend ist: Ein Decision Tree rät **nicht** über
+seinen Trainingsbereich hinaus: Hat er nur Arbeitnehmer mit \$10–20/Std. gesehen,
+hat er keine Grundlage, um für irgendjemanden \$25/Std. vorherzusagen. Andere
+Modelle könnten flexibler sein und Löhne anhand von Faktoren wie Berufserfahrung
+extrapolieren, hätten aber trotzdem Schwierigkeiten, die richtigen Muster allein
+aus den Daten junger Arbeitnehmer zu lernen.
 
-- **Balanced model**: trained on the full, representative training set
-- **Biased model**: trained only on young workers (no middle-aged or older workers)
+- **Ausgewogenes Modell**: trainiert auf der vollständigen, repräsentativen Trainingsmenge
+- **Verzerrtes Modell**: trainiert nur auf jungen Arbeitnehmern (keine mittelalten oder älteren)
 
-Both models are then tested on the *same* test set, which reflects the true age
-distribution of the population.
+Beide Modelle werden dann auf derselben Testmenge getestet, die die wahre
+Altersverteilung der Population widerspiegelt.
 
 ```{code-cell}
-# Balanced model. Sees all age groups in their true proportions
+# Ausgewogenes Modell. Sieht alle Altersgruppen in ihren wahren Anteilen
 tree_balanced = DecisionTreeRegressor(max_depth=4, random_state=42)
 tree_balanced.fit(df_full_train[feature_cols], df_full_train['wage'])
 
-# Biased model trained on young workers only
+# Verzerrtes Modell, nur mit jungen Arbeitnehmern trainiert
 tree_biased = DecisionTreeRegressor(max_depth=4, random_state=42)
 tree_biased.fit(df_biased_train[feature_cols], df_biased_train['wage'])
 
-# Store predictions as new columns in the test table
+# Vorhersagen als neue Spalten in der Testtabelle speichern
 df_test['pred_balanced'] = tree_balanced.predict(df_test[feature_cols])
 df_test['pred_biased']   = tree_biased.predict(df_test[feature_cols])
 
-# Overall RMSE: average prediction error (lower is better)
-print(f"Overall prediction error RMSE (lower is better):")
-print(f"  Balanced model: {rmse(df_test['wage'], df_test['pred_balanced']):.2f} $/hr")
-print(f"  Biased model:   {rmse(df_test['wage'], df_test['pred_biased']):.2f} $/hr")
+# Gesamt-RMSE: durchschnittlicher Vorhersagefehler (niedriger ist besser)
+print(f"Gesamter Vorhersagefehler RMSE (niedriger ist besser):")
+print(f"  Ausgewogenes Modell: {rmse(df_test['wage'], df_test['pred_balanced']):.2f} $/Std.")
+print(f"  Verzerrtes Modell:   {rmse(df_test['wage'], df_test['pred_biased']):.2f} $/Std.")
 print()
-print(f"Mean predicted wage vs actual:")
-print(f"  Actual:         ${df_test['wage'].mean():.1f}/hr")
-print(f"  Balanced model: ${df_test['pred_balanced'].mean():.1f}/hr")
-print(f"  Biased model:   ${df_test['pred_biased'].mean():.1f}/hr  <-- underestimates the wages")
+print(f"Mittlerer vorhergesagter Lohn vs. tatsächlich:")
+print(f"  Tatsächlich:          ${df_test['wage'].mean():.1f}/Std.")
+print(f"  Ausgewogenes Modell:  ${df_test['pred_balanced'].mean():.1f}/Std.")
+print(f"  Verzerrtes Modell:    ${df_test['pred_biased'].mean():.1f}/Std.  <-- unterschätzt die Löhne")
 ```
 
-The biased model's overall error is much larger. But the overall number hides
-*who* the model is getting wrong.
+Der Gesamtfehler des verzerrten Modells ist deutlich größer. Aber die Gesamtzahl
+verschleiert, *bei wem* das Modell danebenliegt.
 
-## How Each Group Is Predicted
+## Wie jede Gruppe vorhergesagt wird
 
-For each age group we compare the **actual mean wage**, the **balanced model's**
-prediction, and the **biased model's** prediction.
+Für jede Altersgruppe vergleichen wir den **tatsächlichen mittleren Lohn**, die
+Vorhersage des **ausgewogenen Modells** und die Vorhersage des **verzerrten
+Modells**.
 
 ```{code-cell}
-print(f"{'Age group':<18} {'Actual':>10} {'Balanced':>10} {'Biased':>8}  {'Biased RMSE':>12}")
-print("-" * 62)
+print(f"{'Altersgruppe':<18} {'Tatsächlich':>12} {'Ausgewogen':>11} {'Verzerrt':>9}  {'RMSE verzerrt':>14}")
+print("-" * 68)
 for g in GROUP_ORDER:
     subset = df_test[df_test['age_group'] == g]
     actual   = subset['wage'].mean()
     balanced = subset['pred_balanced'].mean()
     biased   = subset['pred_biased'].mean()
     err      = rmse(subset['wage'], subset['pred_biased'])
-    print(f"{g:<18} ${actual:>8.1f} ${balanced:>8.1f} ${biased:>6.1f}  {err:>11.2f} $/hr")
+    print(f"{g:<18} ${actual:>10.1f} ${balanced:>9.1f} ${biased:>7.1f}  {err:>13.2f} $/Std.")
 ```
 
 ```{code-cell}
@@ -284,12 +292,12 @@ actual_means   = [df_test[df_test['age_group'] == g]['wage'].mean()          for
 balanced_means = [df_test[df_test['age_group'] == g]['pred_balanced'].mean() for g in GROUP_ORDER]
 biased_means   = [df_test[df_test['age_group'] == g]['pred_biased'].mean()   for g in GROUP_ORDER]
 
-# ── Left: mean predicted wage vs actual ──────────────────────────────────────
-ba = axes[0].bar(x - width, actual_means,   width, label='Actual wage',    color='gray',      alpha=0.8)
-bb = axes[0].bar(x,          balanced_means, width, label='Balanced model', color='steelblue', alpha=0.8)
-bc = axes[0].bar(x + width,  biased_means,   width, label='Biased model',   color='coral',     alpha=0.8)
-axes[0].set_ylabel('Mean wage ($/hr)')
-axes[0].set_title('Mean Predicted Wage by Age Group')
+# ── Links: mittlerer vorhergesagter Lohn vs. tatsächlich ────────────────────
+ba = axes[0].bar(x - width, actual_means,   width, label='Tatsächlicher Lohn',  color='gray',      alpha=0.8)
+bb = axes[0].bar(x,          balanced_means, width, label='Ausgewogenes Modell', color='steelblue', alpha=0.8)
+bc = axes[0].bar(x + width,  biased_means,   width, label='Verzerrtes Modell',   color='coral',     alpha=0.8)
+axes[0].set_ylabel('Mittlerer Lohn ($/Std.)')
+axes[0].set_title('Mittlerer vorhergesagter Lohn nach Altersgruppe')
 axes[0].set_xticks(x)
 axes[0].set_xticklabels(GROUP_ORDER)
 axes[0].legend()
@@ -301,16 +309,16 @@ for bar_group in [ba, bb, bc]:
                          xytext=(0, 3), textcoords='offset points',
                          ha='center', va='bottom', fontsize=9)
 
-# ── Right: RMSE by group ──────────────────────────────────────────────────────
+# ── Rechts: RMSE nach Gruppe ─────────────────────────────────────────────────
 rmse_bal = [rmse(df_test[df_test['age_group'] == g]['wage'],
                  df_test[df_test['age_group'] == g]['pred_balanced']) for g in GROUP_ORDER]
 rmse_bia = [rmse(df_test[df_test['age_group'] == g]['wage'],
                  df_test[df_test['age_group'] == g]['pred_biased'])   for g in GROUP_ORDER]
 
-rb = axes[1].bar(x - width/2, rmse_bal, width, label='Balanced model', color='steelblue', alpha=0.8)
-rc = axes[1].bar(x + width/2, rmse_bia, width, label='Biased model',   color='coral',     alpha=0.8)
-axes[1].set_ylabel('RMSE (lower is better)')
-axes[1].set_title('Prediction Error by Age Group')
+rb = axes[1].bar(x - width/2, rmse_bal, width, label='Ausgewogenes Modell', color='steelblue', alpha=0.8)
+rc = axes[1].bar(x + width/2, rmse_bia, width, label='Verzerrtes Modell',   color='coral',     alpha=0.8)
+axes[1].set_ylabel('RMSE (niedriger ist besser)')
+axes[1].set_title('Vorhersagefehler nach Altersgruppe')
 axes[1].set_xticks(x)
 axes[1].set_xticklabels(GROUP_ORDER)
 axes[1].legend()
@@ -325,31 +333,32 @@ plt.tight_layout()
 plt.show()
 ```
 
-The balanced model (blue) closely tracks actual wages for all three groups. The
-biased model (coral) is stuck near the young-worker wage level for *everyone*:
-it has never encountered high-experience workers and therefore has no way to
-predict that their wages can be $20–30/hr. The older the group, the larger the
-error.
+Das ausgewogene Modell (blau) folgt den tatsächlichen Löhnen für alle drei
+Gruppen recht genau. Das verzerrte Modell (koralle) bleibt für *alle* nahe am
+Lohnniveau junger Arbeitnehmer hängen: Es ist nie auf Arbeitnehmer mit viel
+Erfahrung gestoßen und hat daher keine Möglichkeit, vorherzusagen, dass ihr Lohn
+$20–30/Std. betragen kann. Je älter die Gruppe, desto größer der Fehler.
 
-## Interactive Explorer
+## Interaktiver Explorer
 
-How much does the degree of underrepresentation matter? Use the slider to control
-what fraction of middle-aged and older workers are kept in the training data, then
-click **Train & Evaluate** to see how the predictions change.
+Wie stark spielt das Ausmaß der Unterrepräsentation eine Rolle? Nutze den Regler,
+um zu steuern, welcher Anteil der mittelalten und älteren Arbeitnehmer in den
+Trainingsdaten verbleibt, und klicke dann auf **Trainieren & Auswerten**, um zu
+sehen, wie sich die Vorhersagen verändern.
 
-- **100 %**: no bias, fully representative training data
-- **5 %**: severe bias, young workers dominate
-- **0 %**: extreme: only young workers (model predicts young-worker wages for everyone)
+- **100 %**: keine Verzerrung, voll repräsentative Trainingsdaten
+- **5 %**: starke Verzerrung, junge Arbeitnehmer dominieren
+- **0 %**: extrem: nur junge Arbeitnehmer (Modell sagt für alle Löhne wie für junge Arbeitnehmer voraus)
 
 ```{code-cell}
 slider = widgets.IntSlider(
     value=0, min=0, max=100, step=5,
-    description='Keep % of middle/older:',
+    description='% mittelalt/älter behalten:',
     style={'description_width': 'initial'},
     layout=widgets.Layout(width='450px'),
     continuous_update=False,
 )
-button      = widgets.Button(description='Train & Evaluate', button_style='primary',
+button      = widgets.Button(description='Trainieren & Auswerten', button_style='primary',
                              icon='play', layout=widgets.Layout(width='200px', height='36px'))
 output_area = widgets.Output()
 
@@ -365,18 +374,18 @@ def run_experiment(_):
         results = df_test[['age_group', 'wage']].copy()
         results['pred'] = tree.predict(df_test[feature_cols])
 
-        print(f"Keep fraction: {int(keep*100)}%  |  Training size: {len(df_b)}  "
-              f"|  Mean wage in training: ${df_b['wage'].mean():.1f}/hr")
-        print("=" * 62)
-        print(f"{'Age group':<18} {'Actual':>10} {'Balanced':>10} {'This model':>12}  {'RMSE':>8}")
-        print("-" * 62)
+        print(f"Behaltener Anteil: {int(keep*100)}%  |  Trainingsgröße: {len(df_b)}  "
+              f"|  Mittlerer Lohn im Training: ${df_b['wage'].mean():.1f}/Std.")
+        print("=" * 68)
+        print(f"{'Altersgruppe':<18} {'Tatsächlich':>12} {'Ausgewogen':>11} {'Dieses Modell':>14}  {'RMSE':>8}")
+        print("-" * 68)
         for g in GROUP_ORDER:
             sub      = results[results['age_group'] == g]
             actual   = sub['wage'].mean()
             balanced = df_test[df_test['age_group'] == g]['pred_balanced'].mean()
             pred     = sub['pred'].mean()
             err      = rmse(sub['wage'], sub['pred'])
-            print(f"{g:<18} ${actual:>8.1f} ${balanced:>8.1f} ${pred:>10.1f}  {err:>7.2f} $/hr")
+            print(f"{g:<18} ${actual:>10.1f} ${balanced:>9.1f} ${pred:>12.1f}  {err:>7.2f} $/Std.")
 
         fig, axes = plt.subplots(1, 2, figsize=(13, 4))
         x     = np.arange(len(GROUP_ORDER))
@@ -386,11 +395,11 @@ def run_experiment(_):
         rb = [df_test[df_test['age_group'] == g]['pred_balanced'].mean() for g in GROUP_ORDER]
         rm = [results[results['age_group'] == g]['pred'].mean()          for g in GROUP_ORDER]
 
-        axes[0].bar(x - width, ra, width, label='Actual',         color='gray',      alpha=0.8)
-        axes[0].bar(x,          rb, width, label='Balanced model', color='steelblue', alpha=0.8)
-        axes[0].bar(x + width,  rm, width, label='This model',     color='coral',     alpha=0.8)
-        axes[0].set_ylabel('Mean wage ($/hr)')
-        axes[0].set_title(f'Mean Predicted Wage  (keep = {int(keep*100)}%)')
+        axes[0].bar(x - width, ra, width, label='Tatsächlich',       color='gray',      alpha=0.8)
+        axes[0].bar(x,          rb, width, label='Ausgewogenes Modell', color='steelblue', alpha=0.8)
+        axes[0].bar(x + width,  rm, width, label='Dieses Modell',       color='coral',     alpha=0.8)
+        axes[0].set_ylabel('Mittlerer Lohn ($/Std.)')
+        axes[0].set_title(f'Mittlerer vorhergesagter Lohn  (behalten = {int(keep*100)}%)')
         axes[0].set_xticks(x)
         axes[0].set_xticklabels(GROUP_ORDER)
         axes[0].legend()
@@ -400,10 +409,10 @@ def run_experiment(_):
         rmse_m = [rmse(results[results['age_group'] == g]['wage'],
                        results[results['age_group'] == g]['pred'])          for g in GROUP_ORDER]
 
-        axes[1].bar(x - width/2, rmse_b, width, label='Balanced model', color='steelblue', alpha=0.8)
-        axes[1].bar(x + width/2, rmse_m, width, label='This model',     color='coral',     alpha=0.8)
-        axes[1].set_ylabel('RMSE ($/hr)')
-        axes[1].set_title(f'Prediction Error by Age Group  (keep = {int(keep*100)}%)')
+        axes[1].bar(x - width/2, rmse_b, width, label='Ausgewogenes Modell', color='steelblue', alpha=0.8)
+        axes[1].bar(x + width/2, rmse_m, width, label='Dieses Modell',       color='coral',     alpha=0.8)
+        axes[1].set_ylabel('RMSE ($/Std.)')
+        axes[1].set_title(f'Vorhersagefehler nach Altersgruppe  (behalten = {int(keep*100)}%)')
         axes[1].set_xticks(x)
         axes[1].set_xticklabels(GROUP_ORDER)
         axes[1].legend()
@@ -415,23 +424,26 @@ button.on_click(run_experiment)
 display(widgets.VBox([slider, button, output_area]))
 ```
 
-## Key Observations
+## Wichtige Erkenntnisse
 
-- **The overall error hides the problem**: the biased model looks reasonably
-  accurate overall, because it is correct about the many young workers in the
-  test set. Only group-level evaluation
-  reveals how badly it fails for older workers.
-- **The biased model is stuck at young-worker wages**: trained only on workers
-  earning $10–16/hr, the model's predictions are capped near that range. When
-  it encounters a 50-year-old with 25 years of experience, it predicts around
-  $12–14/hr, even though the actual wage is closer to $22/hr.
-- **Older workers are hit hardest**: the further an age group is from the
-  training data, the larger the prediction error. The 55+ group, which earns
-  the most, suffers the greatest under-prediction.
-- **More young data makes it worse**: adding more young workers to the training
-  set would increase the bias, not reduce it. What matters is *who* is in the
-  data, not just how large the dataset is.
-- **The slider shows the tipping point**: use the interactive explorer above to
-  find at what keep percentage the biased model starts to behave like the
-  balanced one. Notice how quickly predictions improve as even a small fraction
-  of older workers is added back.
+- **Der Gesamtfehler verschleiert das Problem**: Das verzerrte Modell wirkt
+  insgesamt einigermaßen genau, weil es bei den vielen jungen Arbeitnehmern in der
+  Testmenge richtigliegt. Erst die Auswertung auf Gruppenebene zeigt, wie stark es
+  bei älteren Arbeitnehmern versagt.
+- **Das verzerrte Modell bleibt bei Löhnen junger Arbeitnehmer hängen**: Da es nur
+  mit Arbeitnehmern trainiert wurde, die \$10–16/Std. verdienen, sind seine
+  Vorhersagen auf diesen Bereich begrenzt. Trifft es auf eine 50-jährige Person
+  mit 25 Jahren Erfahrung, sagt es etwa \$12–14/Std. voraus, obwohl der
+  tatsächliche Lohn näher an \$22/Std. liegt.
+- **Ältere Arbeitnehmer trifft es am härtesten**: Je weiter eine Altersgruppe von
+  den Trainingsdaten entfernt ist, desto größer der Vorhersagefehler. Die Gruppe
+  55+, die am meisten verdient, leidet unter der stärksten Unterschätzung.
+- **Mehr junge Daten machen es schlimmer**: Würde man der Trainingsmenge weitere
+  junge Arbeitnehmer hinzufügen, würde das die Verzerrung verstärken, nicht
+  verringern. Entscheidend ist, *wer* in den Daten enthalten ist, nicht nur wie
+  groß der Datensatz ist.
+- **Der Regler zeigt den Kipppunkt**: Nutze den interaktiven Explorer oben, um
+  herauszufinden, ab welchem behaltenen Prozentsatz sich das verzerrte Modell wie
+  das ausgewogene zu verhalten beginnt. Beachte, wie schnell sich die Vorhersagen
+  verbessern, sobald auch nur ein kleiner Anteil älterer Arbeitnehmer wieder
+  hinzugefügt wird.

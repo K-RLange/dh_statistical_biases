@@ -4,3 +4,4 @@ pandas
 skimpy
 seaborn
 statsmodels
+scikit-learn
